@@ -4,17 +4,17 @@
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
-        <!-- NIP -->
+
+        <!-- Email Address -->
         <div>
-            <x-input-label for="nip" :value="__('nip')" />
-            <x-text-input id="nip" class="block mt-1 w-full" type="text" name="nip" :value="old
-            ('nip')" required autofocus autocomplete="nip" />
-            <x-input-error :messages="$errors->get('nip')" class="mt-2" />
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('password')" />
+            <x-input-label for="password" :value="__('Password')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"

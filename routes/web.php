@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', action: function () {
+Route::get('/', function () {
     return view('index');
 });
 
