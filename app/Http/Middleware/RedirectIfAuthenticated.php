@@ -19,10 +19,11 @@ class RedirectIfAuthenticated
             return match ($role) {
                 'admin' => redirect('/admin/dashboard'),
                 'kaprodi' => redirect('/kaprodi/dashboard'),
-                default => redirect('/dashboard'), // Mahasiswa
+                default => redirect('/dashboard'),
             };
         }
 
         return $next($request);
     }
+
 }

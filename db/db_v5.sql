@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `pengajuan_surat_if`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`users` (
   `id_user` VARCHAR(9) NOT NULL,
-  `username` VARCHAR(9) NOT NULL,
+  `username` VARCHAR(20) NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
@@ -54,6 +54,8 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 CREATE UNIQUE INDEX `id_user_UNIQUE` ON `pengajuan_surat_if`.`users` (`id_user` ASC);
+
+CREATE UNIQUE INDEX `username_UNIQUE` ON `pengajuan_surat_if`.`users` (`username` ASC);
 
 
 -- -----------------------------------------------------
@@ -219,6 +221,44 @@ CREATE INDEX `surat_id_idx` ON `pengajuan_surat_if`.`surat_pengantar` (`surat_id
 
 CREATE INDEX `surat_pengantar_matkul_idx` ON `pengajuan_surat_if`.`surat_pengantar` (`kode_matkul` ASC);
 
+USE `pengajuan_surat_if`;
+
+DELIMITER $$
+
+USE `pengajuan_surat_if`$$
+DROP TRIGGER IF EXISTS `pengajuan_surat_if`.`generate_id_user` $$
+USE `pengajuan_surat_if`$$
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `pengajuan_surat_if`.`generate_id_user`
+BEFORE INSERT ON `pengajuan_surat_if`.`users`
+FOR EACH ROW
+BEGIN
+    DECLARE TahunSekarang CHAR(4);
+    DECLARE NoAkhir INT;
+    DECLARE NoBaru INT;
+    DECLARE id VARCHAR(9);
+
+    -- Ambil tahun sekarang dalam format 4 digit (YYYY)
+    SET TahunSekarang = DATE_FORMAT(CURDATE(), '%Y');
+
+    -- Cari nomor urut terakhir di tahun ini
+    SELECT COALESCE(MAX(CAST(SUBSTRING(id_user, 7, 3) AS UNSIGNED)), 0) INTO NoAkhir
+    FROM users
+    WHERE SUBSTRING(id_user, 1, 4) = TahunSekarang;
+
+    -- Generate nomor urut baru
+    SET NoBaru = NoAkhir + 1;
+
+    -- Format ID User: YYYY72XXX (tahun + kode prodi 72 + nomor urut 3 digit)
+    SET id = CONCAT(TahunSekarang, "72", LPAD(NoBaru, 3, '0'));
+
+    -- Set nilai id_user & username yang akan diinsert
+    SET NEW.id_user = id;
+END$$
+
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
