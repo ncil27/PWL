@@ -19,6 +19,7 @@ class RedirectIfAuthenticated
             return match ($role) {
                 'admin' => redirect('/admin/dashboard'),
                 'kaprodi' => redirect('/kaprodi/dashboard'),
+                // 'mo' => redirect('/mo/dashboard'),
                 default => redirect('/dashboard'),
             };
         }

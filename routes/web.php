@@ -16,6 +16,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/mo/dashboard', [AdminController::class, 'index'])->name('mo.dashboard');
     Route::get('/kaprodi/dashboard', [KaprodiController::class, 'index'])->name('kaprodi.dashboard');
 });
 
@@ -39,6 +40,8 @@ Route::get('/redirect', function () {
             return redirect()->route('admin.dashboard');
         case 'kaprodi':
             return redirect()->route('kaprodi.dashboard');
+        // case 'mo':
+        //     return redirect()->route('mo.dashboard');
         default:
             return redirect()->route('dashboard');
     }
