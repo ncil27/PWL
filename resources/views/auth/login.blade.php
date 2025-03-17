@@ -41,13 +41,6 @@
         </div>
 
         <div class="flex items-center justify-between mt-4">
-
-            {{-- @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="ms-3 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    {{ __('Register') }}
-                </a>
-            @endif --}}
-            
             <!-- Button Register -->
             @if (Route::has('register'))
                 <a href="{{ route('register') }}">
