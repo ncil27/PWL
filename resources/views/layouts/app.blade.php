@@ -3,26 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <title>@yield('title', 'Dashboard - e-surat')</title>
 
-    <!-- Tambahkan link CSS dari Kai Admin -->
-    <link rel="stylesheet" href="{{ asset('kai-admin/css/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/compiled/svg/favicon.svg') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('assets/compiled/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/compiled/css/app-dark.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/compiled/css/iconly.css') }}">
 </head>
 <body>
-    <!-- Sidebar -->
-    @include('partials.sidebar2')
+    <script src="{{ asset('assets/static/js/initTheme.js') }}"></script>
 
-    <!-- Navbar -->
-    @include('partials.navbar')
+    <div id="app">
+        @include('partials.sidebar')
 
-    <div class="main-content">
-        @yield('content')
+        <div id="main">
+            @include('partials.header')
+
+            <div class="page-content">
+                @yield('content')
+            </div>
+
+            @include('partials.footer')
+        </div>
     </div>
 
-    <!-- Footer -->
-    @include('partials.footer')
-
-    <!-- Tambahkan script dari Kai Admin -->
-    <script src="{{ asset('kai-admin/js/script.js') }}"></script>
+    <script src="{{ asset('assets/static/js/components/dark.js') }}"></script>
+    <script src="{{ asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/compiled/js/app.js') }}"></script>
+    <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/static/js/pages/dashboard.js') }}"></script>
 </body>
 </html>
