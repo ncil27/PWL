@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $keyType = 'string'; // Primary key bertipe string
 
     protected $fillable = [
+        'id_user',
         'username',
         'name',
         'email',

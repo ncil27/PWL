@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+
 class RegisteredUserController extends Controller
 {
     public function create(): View
@@ -23,7 +24,8 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'username' => ['required', 'string', 'max:20', 'unique:users,username'],
+            'id_user' => ['required', 'string', 'max:9', 'unique:users,id_user'],
+            'username' => ['required', 'string', 'max:9', 'unique:users,username'],
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:100', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -33,13 +35,15 @@ class RegisteredUserController extends Controller
         Log::info('Register Request:', $request->all());
 
         $user = User::create([
+            'id_user' => $request->username,
             'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'mahasiswa', // Default role
-            'status' => 'aktif', // Status default
+            'password' => Hash::make($request->password, ['rounds' => 10]),
+            'role' => 'mahasiswa',
+            'status' => 'aktif',
         ]);
+    
 
         event(new Registered($user));
         Auth::login($user);
