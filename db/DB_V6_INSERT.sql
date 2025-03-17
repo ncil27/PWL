@@ -1,0 +1,70 @@
+USE `pengajuan_surat_if`;
+SELECT * FROM USERS;
+
+INSERT INTO `pengajuan_surat_if`.`users`
+(`id_user`,
+`username`,
+`name`,
+`email`,
+`password`,
+`role`,
+`status`,
+`id_prodi`)
+VALUES
+('2372061',
+'2372061',
+'Laura Puspa Ameliana',
+'2372061@maranatha.ac.id',
+'$2a$10$wrcEOZFyua7vNCbjQwgBwuZTt5KWZMUE0wTzZZL7MpaYqICviZ9Tm',
+'mahasiswa',
+'aktif',
+'if'),
+('2372060',
+'2372060',
+'Cecilia Anna Hartanti Naibaho',
+'2372060@maranatha.ac.id',
+'$2a$10$wrcEOZFyua7vNCbjQwgBwuZTt5KWZMUE0wTzZZL7MpaYqICviZ9Tm',
+'mahasiswa',
+'aktif',
+'si'),
+('2372601',
+'2372601',
+'Laura MO',
+'laura.mo@gmail.co',
+'$2a$10$wrcEOZFyua7vNCbjQwgBwuZTt5KWZMUE0wTzZZL7MpaYqICviZ9Tm',
+'mo',
+'aktif',
+'if'),
+('2372600',
+'2372600',
+'Cecilia MO',
+'cecil@mo.co',
+'$2a$10$wrcEOZFyua7vNCbjQwgBwuZTt5KWZMUE0wTzZZL7MpaYqICviZ9Tm',
+'mo',
+'aktif',
+'si'),
+
+('2372100',
+'2372100',
+'Laura kaprodi',
+'kaprodi@if.laura',
+'$2a$10$wrcEOZFyua7vNCbjQwgBwuZTt5KWZMUE0wTzZZL7MpaYqICviZ9Tm',
+'kaprodi',
+'aktif',
+'if'),
+('2372200',
+'2372200',
+'Cecilia kaprodi',
+'kaprodi@cecil.com',
+'$2a$10$wrcEOZFyua7vNCbjQwgBwuZTt5KWZMUE0wTzZZL7MpaYqICviZ9Tm',
+'kaprodi',
+'aktif',
+'si');
+
+INSERT INTO `pengajuan_surat_if`.`program_studi`
+(`id_prodi`,
+`program_studi`)
+VALUES
+('if', 'S-1 Teknik Informatika'),
+('si','S-1 Sistem Informasi'),
+('s2','S-2 Ilmu Komputer');

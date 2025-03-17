@@ -26,18 +26,22 @@ class UserController extends Controller
             'username' => 'required|string|max:20|unique:users,username',
             'name' => 'required|string|max:100',
             'email' => 'required|string|email|max:100|unique:users,email',
-            'password' => 'required|string|min:6',
-            'role' => 'required|string|max:10',
-            'status' => 'required|string|max:11',
+            'password' => 'required|string|min:6|confirmed',
+            'role' => 'required|in:mahasiswa,admin,mo,kaprodi',
+            'status' => 'required|in:aktif,non-aktif',
+            'id_prodi' => 'required|string|size:2',
         ]);
 
         $user = User::create([
+            'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status,
+            'id_prodi' => $request->id_prodi,
         ]);
+
 
         return response()->json([
             'message' => 'User berhasil dibuat',
@@ -62,13 +66,21 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'sometimes|string|max:100',
-            'email' => 'sometimes|string|email|max:100|unique:users,email,' . $id . ',id_user',
-            'password' => 'sometimes|string|min:6',
-            'role' => 'sometimes|string|max:10',
-            'status' => 'sometimes|string|max:11',
+            'name' => 'required|string|max:100',
+            'email' => 'required|string|email|max:100|unique:users,email,' . $user->id_user . ',id_user',
+            'role' => 'required|in:mahasiswa,admin,mo,kaprodi',
+            'status' => 'required|in:aktif,non-aktif',
+            'id_prodi' => 'required|string|size:2',
         ]);
 
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'status' => $request->status,
+            'id_prodi' => $request->id_prodi,
+        ]);
+        
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }

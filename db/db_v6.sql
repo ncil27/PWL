@@ -36,8 +36,8 @@ DEFAULT CHARACTER SET = utf8mb3;
 DROP TABLE IF EXISTS `pengajuan_surat_if`.`program_studi` ;
 
 CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`program_studi` (
-  `id_prodi` ENUM("if", "si", "s2") NOT NULL,
-  `program_studi` ENUM("S-1 Teknik Informatika", "S-1 Sistem Informasi", "S-2 Ilmu Komputer") NOT NULL,
+  `id_prodi` CHAR(2) NOT NULL,
+  `program_studi` VARCHAR(25) NOT NULL,
   PRIMARY KEY (`id_prodi`))
 ENGINE = InnoDB;
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`users` (
   `password` VARCHAR(100) NOT NULL,
   `role` ENUM("mahasiswa", "admin", "mo", "kaprodi") NOT NULL,
   `status` ENUM("aktif", "non-aktif") NOT NULL,
-  `id_prodi` ENUM("if", "si", "s2") NOT NULL,
+  `id_prodi` CHAR(2) NOT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE INDEX `id_user_UNIQUE` (`id_user` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
