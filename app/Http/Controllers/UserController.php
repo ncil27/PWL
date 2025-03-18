@@ -87,4 +87,9 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User berhasil dihapus']);
     }
+
+    public function users(){
+        $allUsers = User::all();
+        return view('users',['users'=>$allUsers]);
+    }
 }

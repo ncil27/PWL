@@ -11,8 +11,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    use HasFactory, Notifiable;
-
     protected $table = 'users';
     protected $primaryKey = 'id_user'; // Menggunakan id_user sebagai primary key
     public $incrementing = false; // Tidak auto-increment karena VARCHAR
@@ -31,5 +29,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    
+    
 
 }
