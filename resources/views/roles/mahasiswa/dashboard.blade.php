@@ -1,4 +1,4 @@
-@extends('coba-template.try-temp');
+@extends('coba-template.mahasiswa');
 @section('page-title', "Dashboard")
 
 

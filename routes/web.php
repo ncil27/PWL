@@ -3,16 +3,19 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PengajuanController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/try-temp', function () {
-    return view('coba-template.try-temp');
+
+Route::get('/pengantar-tugas', function () {
+    return view('roles.mahasiswa.pengantar-tugas');
 });
-Route::get('/home', function () {
-    return view('home');
+
+Route::get('/', function () {
+    return view('welcome');
 });
 
 Route::get('/dashboard', function () {
@@ -57,5 +60,7 @@ Route::delete('/manage-users/{id}', function ($id) {
     User::destroy($id);
     return redirect()->route('manage-users')->with('success', 'User deleted successfully.');
 })->name('delete-user');
+
+Route::post('/pengajuan-surat', [PengajuanController::class, 'store'])->name('pengajuan-surat.store');
 
 require __DIR__.'/auth.php';

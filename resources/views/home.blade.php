@@ -2,7 +2,7 @@
     <div class="card card-info card-annoucement card-round">
         <div class="card-body text-center">
             <div class="card-opening">
-                <span class="h1 fw-bold mb-3 items-center  text-black ">Website Pengajuan Dokumen | Teknik Informatika <br><br><br><br><br></span>
+                <span class="h1 fw-bold mb-3 items-center  text-white ">Website Pengajuan Dokumen | Teknik Informatika <br><br><br><br><br></span>
                 {{-- <p class="mt-2 text-lg text-gray-300">Website Pengajuan Dokumen | Teknik Informatika</p> --}}
             </div>
         
