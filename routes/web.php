@@ -3,7 +3,7 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,7 +16,21 @@ Route::get('/home', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = Auth::user(); // Ambil pengguna yang sedang login
+
+    // Redirect berdasarkan role
+    if ($user->role === 'admin') {
+        return view('roles.admin.dashboard');
+    } elseif ($user->role === 'mo') {
+        return view('roles.mo.dashboard');
+    } elseif ($user->role === 'kaprodi') {
+        return view('roles.kaprodi.dashboard');
+    } elseif ($user->role === 'mahasiswa') {
+        return view('roles.mahasiswa.dashboard');
+    }
+
+    // Default jika tidak memiliki role
+    abort(403, 'Unauthorized');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/manage-user', function () {
