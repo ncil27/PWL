@@ -1,6 +1,14 @@
 USE `pengajuan_surat_if`;
 SELECT * FROM USERS;
 
+INSERT INTO `pengajuan_surat_if`.`program_studi`
+(`id_prodi`,
+`program_studi`,`kode_prodi`)
+VALUES
+('if', 'S-1 Teknik Informatika','72'),
+('si','S-1 Sistem Informasi','73'),
+('s2','S-2 Ilmu Komputer','71');
+
 INSERT INTO `pengajuan_surat_if`.`users`
 (`id_user`,
 `username`,
@@ -61,10 +69,4 @@ VALUES
 'aktif',
 'si');
 
-INSERT INTO `pengajuan_surat_if`.`program_studi`
-(`id_prodi`,
-`program_studi`)
-VALUES
-('if', 'S-1 Teknik Informatika'),
-('si','S-1 Sistem Informasi'),
-('s2','S-2 Ilmu Komputer');
+

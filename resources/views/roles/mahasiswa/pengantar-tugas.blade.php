@@ -33,6 +33,13 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
+                                                <label for="first-name-vertical">Mata Kuliah</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="mata-kuliah" placeholder="Mata Kuliah" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
                                                 <label for="first-name-vertical">Topik</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
                                                     name="topik" placeholder="Topik" required>
@@ -59,35 +66,35 @@
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nama Mahasiswa 1</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama-mahasiswa" placeholder="Topik" required>
+                                                    name="nama-mahasiswa" placeholder="Nama Mahasiswa 1" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nama Mahasiswa 2</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama-mahasiswa" placeholder="Topik">
+                                                    name="nama-mahasiswa" placeholder="Nama Mahasiswa 2">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nama Mahasiswa 3</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama-mahasiswa" placeholder="Topik">
+                                                    name="nama-mahasiswa" placeholder="Nama Mahasiswa 3">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nama Mahasiswa 4</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama-mahasiswa" placeholder="Topik">
+                                                    name="nama-mahasiswa" placeholder="Nama Mahasiswa 4">
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nama Mahasiswa 5</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama-mahasiswa" placeholder="Topik">
+                                                    name="nama-mahasiswa" placeholder="Nama Mahasiswa 5">
                                             </div>
                                         </div>
 
