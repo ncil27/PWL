@@ -22,13 +22,13 @@ Route::get('/dashboard', function () {
     $user = Auth::user(); // Ambil pengguna yang sedang login
 
     // Redirect berdasarkan role
-    if ($user->role === 'admin') {
+    if ($user->id_role === 0) {
         return view('roles.admin.dashboard');
-    } elseif ($user->role === 'mo') {
+    } elseif ($user->id_role === 2) {
         return view('roles.mo.dashboard');
-    } elseif ($user->role === 'kaprodi') {
-        return view('roles.kaprodi.dashboard');
-    } elseif ($user->role === 'mahasiswa') {
+    } elseif ($user->id_role === 1) {
+        return view('id_s.kaprodi.dashboard');
+    } elseif ($user->id_role === 3) {
         return view('roles.mahasiswa.dashboard');
     }
 
@@ -61,6 +61,9 @@ Route::delete('/manage-users/{id}', function ($id) {
     return redirect()->route('manage-users')->with('success', 'User deleted successfully.');
 })->name('delete-user');
 
-Route::post('/pengajuan-surat', [PengajuanController::class, 'store'])->name('pengajuan-surat.store');
+Route::post('/store', [PengajuanController::class, 'store'])->name('pengajuan-surat.store');
+
+
+Route::get('/logout', [ProfileController::class, 'logout']);
 
 require __DIR__.'/auth.php';

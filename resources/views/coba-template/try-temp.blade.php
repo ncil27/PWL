@@ -50,6 +50,12 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-title">Account</li>
+                        <a href="/logout" class='sidebar-link'>
+                                <i class="bi bi-person-badge-fill"></i>
+                                <span>Log Out</span>
+                        </a>
+
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

@@ -318,7 +318,7 @@ VALUES
 'Laura admin',
 'admin@if.laura',
 '$2y$10$.lNomzKJerwAdTIq7Hf0aOtve9a497jc3dWQ4D.3p21zQ0qJbxjjC',
-1,
+0,
 1,
 '72'),
 ('2372202',
@@ -326,7 +326,7 @@ VALUES
 'Cecilia admin',
 'admin@cecil.com',
 '$2y$10$.lNomzKJerwAdTIq7Hf0aOtve9a497jc3dWQ4D.3p21zQ0qJbxjjC',
-1,
+0,
 1,
 '73');
 
