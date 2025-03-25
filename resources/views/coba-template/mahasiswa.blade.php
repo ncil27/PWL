@@ -36,7 +36,7 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item active ">
+                        {{-- <li class="sidebar-item active ">
                             <a href="/dashboard" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
@@ -62,8 +62,35 @@
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Surat Keterangan Lulus</span>
                             </a>
+                        </li> --}}
+                        <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
+                            <a href="/dashboard" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
                         </li>
-
+                        
+                        <li class="sidebar-item {{ Request::is('pengantar-tugas') ? 'active' : '' }}">
+                            <a href="/pengantar-tugas" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Surat Pengantar Tugas</span>
+                            </a>
+                        </li>
+                        
+                        <li class="sidebar-item {{ Request::is('surat-keterangan-mahasiswa-aktif') ? 'active' : '' }}">
+                            <a href="/surat-keterangan-mahasiswa-aktif" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Surat Keterangan Mahasiswa Aktif</span>
+                            </a>
+                        </li>
+                        
+                        <li class="sidebar-item {{ Request::is('surat-keterangan-lulus') ? 'active' : '' }}">
+                            <a href="/surat-keterangan-lulus" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Surat Keterangan Lulus</span>
+                            </a>
+                        </li>
+                        
                         <li class="sidebar-title">Account</li>
                         <a href="/logout" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
