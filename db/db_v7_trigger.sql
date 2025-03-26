@@ -72,10 +72,10 @@ CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`users` (
   `created_at` TIMESTAMP NULL DEFAULT NULL,
   `updated_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id_user`),
-  UNIQUE INDEX `id_user_UNIQUE` (`id_user` ASC)   ,
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC)   ,
-  INDEX `id_prodi_di_user_idx` (`id_prodi` ASC)   ,
-  INDEX `id_role_di_user_idx` (`id_role` ASC)   ,
+  UNIQUE INDEX `id_user_UNIQUE` (`id_user` ASC) ,
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) ,
+  INDEX `id_prodi_di_user_idx` (`id_prodi` ASC) ,
+  INDEX `id_role_di_user_idx` (`id_role` ASC) ,
   CONSTRAINT `id_prodi_di_user`
     FOREIGN KEY (`id_prodi`)
     REFERENCES `pengajuan_surat_if`.`program_studi` (`id_prodi`)
@@ -99,14 +99,14 @@ CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`pengajuan` (
   `id_pengajuan` VARCHAR(20) NOT NULL,
   `id_mhs` VARCHAR(9) NOT NULL,
   `kode_surat` INT NOT NULL,
-  `status_pengajuan` INT NOT NULL,
+  `status_pengajuan` INT NOT NULL DEFAULT 0,
   `file_surat` VARCHAR(100) NULL DEFAULT NULL,
   `created_at` TIMESTAMP NULL DEFAULT NULL,
   `updated_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id_pengajuan`),
-  UNIQUE INDEX `surat_id_UNIQUE` (`id_pengajuan` ASC)   ,
-  INDEX `id_mhs_idx` (`id_mhs` ASC)   ,
-  INDEX `kode_surat_idx` (`kode_surat` ASC)   ,
+  UNIQUE INDEX `surat_id_UNIQUE` (`id_pengajuan` ASC) ,
+  INDEX `id_mhs_idx` (`id_mhs` ASC) ,
+  INDEX `kode_surat_idx` (`kode_surat` ASC) ,
   CONSTRAINT `id_mhs`
     FOREIGN KEY (`id_mhs`)
     REFERENCES `pengajuan_surat_if`.`users` (`id_user`)
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`surat_ket_lulus` (
   `tgl_lulus` DATE NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id_surat_lulus`),
-  INDEX `surat_id_idx` (`id_pengajuan` ASC)   ,
+  INDEX `surat_id_idx` (`id_pengajuan` ASC) ,
   CONSTRAINT `lulus_surat_id`
     FOREIGN KEY (`id_pengajuan`)
     REFERENCES `pengajuan_surat_if`.`pengajuan` (`id_pengajuan`)
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`surat_lhs` (
   `keperluan` VARCHAR(100) NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id_surat_lhs`),
-  INDEX `surat_id_idx` (`id_pengajuan` ASC)   ,
+  INDEX `surat_id_idx` (`id_pengajuan` ASC) ,
   CONSTRAINT `lhs_surat_id`
     FOREIGN KEY (`id_pengajuan`)
     REFERENCES `pengajuan_surat_if`.`pengajuan` (`id_pengajuan`))
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`surat_mhs_aktif` (
   `periode` VARCHAR(15) NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id_surat_skma`),
-  INDEX `surat_id_idx` (`id_pengajuan` ASC)   ,
+  INDEX `surat_id_idx` (`id_pengajuan` ASC) ,
   CONSTRAINT `mhs_surat_id`
     FOREIGN KEY (`id_pengajuan`)
     REFERENCES `pengajuan_surat_if`.`pengajuan` (`id_pengajuan`)
@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`surat_pengantar` (
   `data_mhs` VARCHAR(150) NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id_surat_pengantar`),
-  INDEX `surat_id_idx` (`id_pengajuan` ASC)   ,
+  INDEX `surat_id_idx` (`id_pengajuan` ASC) ,
   CONSTRAINT `pengantar_surat_id`
     FOREIGN KEY (`id_pengajuan`)
     REFERENCES `pengajuan_surat_if`.`pengajuan` (`id_pengajuan`)
@@ -222,7 +222,7 @@ INSERT INTO `pengajuan_surat_if`.`program_studi`
 VALUES
 ('72', 'S-1 Teknik Informatika','if'),
 ('73','S-1 Sistem Informasi','si'),
-('71','S-2 Ilmu Komputer','s2');
+('71','S-2 Ilmu Komputer','ik');
 
 insert into `pengajuan_surat_if`.`role`
 (
@@ -233,6 +233,17 @@ VALUES
 (1, 'Kaprodi'),
 (2, 'MO'),
 (3, 'Mahasiswa');
+
+
+insert into `pengajuan_surat_if`.`jenis_surat`
+(
+ `kode_surat`,
+ `jenis_surat`)
+VALUES
+(0, 'Surat Keterangan Mahasiswa Aktif'),
+(1, 'Surat Pengantar Tugas'),
+(2, 'Laporan Hasil Studi'),
+(3, 'Surat Keterangan Lulus');
 
 INSERT INTO `pengajuan_surat_if`.`users`
 (`id_user`,
@@ -434,12 +445,18 @@ BEGIN
     DECLARE NoBaru INT;
     DECLARE id VARCHAR(20);
 
-    SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(id_pengajuan, '/', 1) AS UNSIGNED)), 0) INTO NoAkhir
+    -- Ambil nomor urut terakhir untuk hari ini
+    SELECT COALESCE(MAX(CAST(SUBSTRING(id_pengajuan, 11, 4) AS UNSIGNED)), 0) INTO NoAkhir
     FROM pengajuan
-    WHERE SUBSTRING_INDEX(id_pengajuan, '/', -1) = CONCAT(LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
+    WHERE SUBSTRING(id_pengajuan, 5, 6) = DATE_FORMAT(CURDATE(), '%d%m%y');
 
+    -- Tambahkan nomor urut baru
     SET NoBaru = NoAkhir + 1;
-    SET id = CONCAT(LPAD(NoBaru, 3, '0'), '/PGJ/', LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
+
+    -- Format ID: PGN-DDMMYYY-0001
+    SET id = CONCAT('PGN-', DATE_FORMAT(CURDATE(), '%d%m%y'), '-', LPAD(NoBaru, 4, '0'));
+
+    -- Set nilai id_pengajuan baru
     SET NEW.id_pengajuan = id;
 END;
 //

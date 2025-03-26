@@ -32,7 +32,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    
+    public function programStudi()
+    {
+        return $this->belongsTo(ProgramStudi::class, 'id_prodi', 'id_prodi');
+    }
+
     
 
 }
