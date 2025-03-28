@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SuratSKLController;
+use App\Http\Controllers\SuratSKMAController;
+use App\Http\Controllers\SuratSLHSController;
+use App\Http\Controllers\SuratSPController;
+
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -67,7 +72,37 @@ Route::delete('/manage-users/{id}', function ($id) {
     return redirect()->route('manage-users')->with('success', 'User deleted successfully.');
 })->name('delete-user');
 
-Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
+// Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
+Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');
+
+Route::get('/surat/skma/create', [SuratSKMAController::class, 'create'])->name('surat.skma.create');
+Route::get('/surat/sp/create', [SuratSPController::class, 'create'])->name('surat.sp.create');
+Route::get('/surat/skl/create', [SuratSKLController::class, 'create'])->name('surat.skl.create');
+Route::get('/surat/slhs/create', [SuratSLHSController::class, 'create'])->name('surat.slhs.create');
+
+Route::post('/surat/sp/store', [SuratSPController::class, 'store'])->name('surat.sp.store');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::get('/logout', [ProfileController::class, 'logout']);

@@ -330,11 +330,11 @@ CREATE TRIGGER generate_id_surat_lhs
 BEFORE INSERT ON surat_lhs
 FOR EACH ROW
 BEGIN
-    DECLARE NoAkhir INT;
+    DECLARE NoAkhir INT DEFAULT 0;
     DECLARE NoBaru INT;
-    DECLARE id VARCHAR(20); 
+    DECLARE id VARCHAR(25); 
     DECLARE kode_prodi CHAR(2);
-    
+
     -- Ambil kode prodi berdasarkan id_pengajuan
     SELECT u.id_prodi INTO kode_prodi
     FROM users u
@@ -343,14 +343,15 @@ BEGIN
     LIMIT 1;
 
     -- Ambil nomor urut terakhir untuk bulan & tahun ini
-    SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(id_surat_lhs, '/', 1) AS UNSIGNED)), 0) INTO NoAkhir
+    SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(id_surat_lhs, '/', 1) AS UNSIGNED)), 0) 
+    INTO NoAkhir
     FROM surat_lhs
-    WHERE SUBSTRING_INDEX(id_surat_lhs, '/', -1) = CONCAT(LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
+    WHERE id_surat_lhs LIKE CONCAT('%/', kode_prodi, '/', LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
 
     -- Nomor urut baru
     SET NoBaru = NoAkhir + 1;
 
-    -- Format ID: nomor/SKMA/kode_prodi/bulan/tahun
+    -- Format ID: nomor/SLHS/kode_prodi/bulan/tahun
     SET id = CONCAT(LPAD(NoBaru, 3, '0'), '/SLHS/', kode_prodi, '/', LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
 
     -- Set nilai ID yang akan diinsert
@@ -363,9 +364,9 @@ CREATE TRIGGER generate_id_surat_ket_lulus
 BEFORE INSERT ON surat_ket_lulus
 FOR EACH ROW
 BEGIN
-    DECLARE NoAkhir INT;
+    DECLARE NoAkhir INT DEFAULT 0;
     DECLARE NoBaru INT;
-    DECLARE id VARCHAR(20);
+    DECLARE id VARCHAR(25);
     DECLARE kode_prodi CHAR(2);
 
     SELECT u.id_prodi INTO kode_prodi
@@ -374,9 +375,10 @@ BEGIN
     WHERE p.id_pengajuan = NEW.id_pengajuan
     LIMIT 1;
 
-    SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(id_surat_lulus, '/', 1) AS UNSIGNED)), 0) INTO NoAkhir
+    SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(id_surat_lulus, '/', 1) AS UNSIGNED)), 0) 
+    INTO NoAkhir
     FROM surat_ket_lulus
-    WHERE SUBSTRING_INDEX(id_surat_lulus, '/', -1) = CONCAT(LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
+    WHERE id_surat_lulus LIKE CONCAT('%/', kode_prodi, '/', LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
 
     SET NoBaru = NoAkhir + 1;
     SET id = CONCAT(LPAD(NoBaru, 3, '0'), '/SKL/', kode_prodi, '/', LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
@@ -389,9 +391,9 @@ CREATE TRIGGER generate_id_surat_pengantar
 BEFORE INSERT ON surat_pengantar
 FOR EACH ROW
 BEGIN
-    DECLARE NoAkhir INT;
+    DECLARE NoAkhir INT DEFAULT 0;
     DECLARE NoBaru INT;
-    DECLARE id VARCHAR(20);
+    DECLARE id VARCHAR(25);
     DECLARE kode_prodi CHAR(2);
 
     SELECT u.id_prodi INTO kode_prodi
@@ -400,9 +402,10 @@ BEGIN
     WHERE p.id_pengajuan = NEW.id_pengajuan
     LIMIT 1;
 
-    SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(id_surat_pengantar, '/', 1) AS UNSIGNED)), 0) INTO NoAkhir
+    SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(id_surat_pengantar, '/', 1) AS UNSIGNED)), 0) 
+    INTO NoAkhir
     FROM surat_pengantar
-    WHERE SUBSTRING_INDEX(id_surat_pengantar, '/', -1) = CONCAT(LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
+    WHERE id_surat_pengantar LIKE CONCAT('%/', kode_prodi, '/', LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
 
     SET NoBaru = NoAkhir + 1;
     SET id = CONCAT(LPAD(NoBaru, 3, '0'), '/SP/', kode_prodi, '/', LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
@@ -415,9 +418,9 @@ CREATE TRIGGER generate_id_surat_mhs_aktif
 BEFORE INSERT ON surat_mhs_aktif
 FOR EACH ROW
 BEGIN
-    DECLARE NoAkhir INT;
+    DECLARE NoAkhir INT DEFAULT 0;
     DECLARE NoBaru INT;
-    DECLARE id VARCHAR(20);
+    DECLARE id VARCHAR(25);
     DECLARE kode_prodi CHAR(2);
 
     SELECT u.id_prodi INTO kode_prodi
@@ -426,9 +429,10 @@ BEGIN
     WHERE p.id_pengajuan = NEW.id_pengajuan
     LIMIT 1;
 
-    SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(id_surat_skma, '/', 1) AS UNSIGNED)), 0) INTO NoAkhir
+    SELECT COALESCE(MAX(CAST(SUBSTRING_INDEX(id_surat_skma, '/', 1) AS UNSIGNED)), 0) 
+    INTO NoAkhir
     FROM surat_mhs_aktif
-    WHERE SUBSTRING_INDEX(id_surat_skma, '/', -1) = CONCAT(LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
+    WHERE id_surat_skma LIKE CONCAT('%/', kode_prodi, '/', LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
 
     SET NoBaru = NoAkhir + 1;
     SET id = CONCAT(LPAD(NoBaru, 3, '0'), '/SKMA/', kode_prodi, '/', LPAD(MONTH(CURDATE()), 2, '0'), '/', YEAR(CURDATE()));
@@ -436,7 +440,6 @@ BEGIN
 END;
 //
 
--- Trigger untuk pengajuan
 CREATE TRIGGER generate_id_pengajuan
 BEFORE INSERT ON pengajuan
 FOR EACH ROW
@@ -446,7 +449,7 @@ BEGIN
     DECLARE id VARCHAR(20);
 
     -- Ambil nomor urut terakhir untuk hari ini
-    SELECT COALESCE(MAX(CAST(SUBSTRING(id_pengajuan, 11, 4) AS UNSIGNED)), 0) INTO NoAkhir
+    SELECT COALESCE(MAX(CAST(SUBSTRING(id_pengajuan, 12, 4) AS UNSIGNED)), 0) INTO NoAkhir
     FROM pengajuan
     WHERE SUBSTRING(id_pengajuan, 5, 6) = DATE_FORMAT(CURDATE(), '%d%m%y');
 
@@ -460,7 +463,6 @@ BEGIN
     SET NEW.id_pengajuan = id;
 END;
 //
-
 DELIMITER ;
-
+-- test save db
 -- end attached script 'script_trigger_srt'

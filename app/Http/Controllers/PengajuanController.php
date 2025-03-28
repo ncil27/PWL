@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
+use App\Models\JenisSurat;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -65,6 +66,34 @@ class PengajuanController extends Controller
     
         return redirect()->back()->with('success', 'Pengajuan surat berhasil dikirim!');
     }
+
+    // public function formPengajuan($kode_surat)
+    // {
+    //     // Ambil data jenis surat dari database
+    //     $jenisSurat = JenisSurat::where('kode_surat', $kode_surat)->firstOrFail();
+
+    //     // Redirect ke view sesuai dengan jenis surat
+    //     // return view('pengajuan.form', compact('jenisSurat'));
+    // }
+
+    public function redirectSurat(Request $request)
+    {
+        $kodeSurat = $request->kode_surat;
+
+        switch ($kodeSurat) {
+            case '0':
+                return redirect()->route('surat.skma.create');
+            case '1':
+                return redirect()->route('surat.sp.create');
+            case '2':
+                return redirect()->route('surat.skl.create');
+            case '3':
+                return redirect()->route('surat.slhs.create');
+            default:
+                return redirect()->back()->with('error', 'Jenis surat tidak dikenali');
+        }
+    }
+
 }
 
 
