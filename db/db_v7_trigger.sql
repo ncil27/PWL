@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`surat_pengantar` (
   `penerima` VARCHAR(100) NOT NULL,
   `kode_matkul` VARCHAR(10) NOT NULL,
   `periode` VARCHAR(10) NOT NULL,
-  `tujuan` VARCHAR(100) NOT NULL,
+  `tujuan` VARCHAR(200) NOT NULL,
   `topik` VARCHAR(100) NOT NULL,
   `data_mhs` VARCHAR(150) NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT NULL,

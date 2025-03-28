@@ -72,7 +72,7 @@ Route::delete('/manage-users/{id}', function ($id) {
     return redirect()->route('manage-users')->with('success', 'User deleted successfully.');
 })->name('delete-user');
 
-// Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
+Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
 Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');
 
 Route::get('/surat/skma/create', [SuratSKMAController::class, 'create'])->name('surat.skma.create');

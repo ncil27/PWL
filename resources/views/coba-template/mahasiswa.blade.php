@@ -70,7 +70,7 @@
                             </a>
                         </li>
                         
-                        <li class="sidebar-item {{ Request::is('pengantar-tugas') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::is('surat.sp.create') ? 'active' : '' }}">
                             <a href="/pengantar-tugas" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Surat Pengantar Tugas</span>

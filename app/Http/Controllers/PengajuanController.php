@@ -78,6 +78,17 @@ class PengajuanController extends Controller
 
     public function redirectSurat(Request $request)
     {
+        $request->validate([
+            'kode_surat' => 'required|exists:jenis_surat,kode_surat',
+        ]);
+
+        Pengajuan::create([
+            // 'id_pengajuan' => uniqid('PGN_'), // ID unik
+            'id_mhs' => Auth::user()->id_user, // Ambil dari user yang login
+            'kode_surat' => $request->kode_surat,
+            'status_pengajuan' => 0, // Default status pending
+        ]);
+        
         $kodeSurat = $request->kode_surat;
 
         switch ($kodeSurat) {
