@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="card-body">
-                            <form action="{{route('pengajuan-surat.store') }}" method="POST" class="form form-vertical">
+                            <form action="#" method="POST" class="form form-vertical">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
