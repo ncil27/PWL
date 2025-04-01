@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,6 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        $roles = Role::all();
         return response()->json($users);
     }
 
@@ -88,8 +90,14 @@ class UserController extends Controller
         return response()->json(['message' => 'User berhasil dihapus']);
     }
 
-    public function users(){
-        $allUsers = User::all();
-        return view('users',['users'=>$allUsers]);
+    public function users()
+    {
+    $allUsers = User::with('role')->get();
+    return view('users', ['users' => $allUsers]);
+    }
+    public function create()
+    {
+        $roles = Role::all(); // Ambil semua role dari tabel roles
+        return view('admin.create-user', compact('roles'));
     }
 }

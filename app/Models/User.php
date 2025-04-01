@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\Role;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,6 +38,10 @@ class User extends Authenticatable
         return $this->belongsTo(ProgramStudi::class, 'id_prodi', 'id_prodi');
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role','id_role'); 
+    }
     
 
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\SuratSKLController;
 use App\Http\Controllers\SuratSKMAController;
 use App\Http\Controllers\SuratSLHSController;
 use App\Http\Controllers\SuratSPController;
+use App\Http\Controllers\AdminController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -59,18 +60,21 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/manage-user', function () {
     $users = User::all(); // Mengambil semua data users
-    return view('manage-user', compact('users'));   
+    return view('roles.admin.manage-user', compact('users'));   
 })->name('manage-user');
 
-Route::get('/manage-users/{id}/edit', function ($id) {
-    $user = User::findOrFail($id);
+Route::get('/manage-users/{id_user}/edit', function ($id_user) {
+    $user = User::findOrFail($id_user);
     return view('edit-user', compact('user'));
 })->name('edit-user');
 
-Route::delete('/manage-users/{id}', function ($id) {
-    User::destroy($id);
+Route::delete('/manage-users/{id_user}', function ($id_user) {
+    User::destroy($id_user);
     return redirect()->route('manage-users')->with('success', 'User deleted successfully.');
 })->name('delete-user');
+
+
+Route::get('/admin/create-user',[AdminController::class,'createUser'])->name('create-user');
 
 Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
 Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');

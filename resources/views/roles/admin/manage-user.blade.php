@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('coba-template.try-temp') 
 
 @section('title', 'Manage Users')
 
@@ -10,7 +10,8 @@
 <section class="section">
     <div class="card">
         <div class="card-header">
-            <h4>User List</h4>
+            <h4>User List
+            <a href='/admin/create-user' style="margin-left:90%;" class="btn btn-warning">Add User</a> </h4>
         </div>
         <div class="card-body">
             <table class="table table-striped" id="userTable">
@@ -29,10 +30,10 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->role ?? 'User' }}</td>
+                            <td>{{ $user->role->role ?? 'Tidak Ada Role' }}</td>
                             <td>
-                                <a href="{{ route('edit-user', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <form action="{{ route('delete-user', $user->id) }}" method="POST" class="d-inline">
+                                <a href="{{ route('edit-user', $user->id_user) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <form action="{{ route('delete-user', $user->id_user) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
