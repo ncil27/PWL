@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\ProgramStudi;
 
 class AdminController extends Controller
 {
     public function index()
     {
+        $programStudi = ProgramStudi::all();
         return view('roles.admin.dashboard');
     }
 
@@ -19,7 +21,8 @@ class AdminController extends Controller
     public function createUser(){
         
         $roles = Role::all();
-        return view('roles.admin.create-user', compact('roles'));
+        $programStudi = ProgramStudi::all();
+        return view('roles.admin.create-user', compact('roles', 'programStudi'));
     }
 
 

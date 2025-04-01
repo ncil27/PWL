@@ -18,33 +18,33 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="first-name-vertical">Id User</label>
-                                            <input type="text" id="first-name-vertical"
-                                                class="form-control" name="fname"
+                                            <label for="id_user">Id User</label>
+                                            <input type="text" id="Id User"
+                                                class="form-control" name="id_user"
                                                 placeholder="Id User">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="first-name-vertical">Name</label>
-                                            <input type="text" id="first-name-vertical"
-                                                class="form-control" name="fname"
+                                            <label for="name">Name</label>
+                                            <input type="text" id="name"
+                                                class="form-control" name="name"
                                                 placeholder="Name">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="email-id-vertical">Email</label>
-                                            <input type="email" id="email-id-vertical"
-                                                class="form-control" name="email-id"
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email"
+                                                class="form-control" name="email"
                                                 placeholder="Email">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="email-id-vertical">Role</label>
+                                            <label for="role">Role</label>
                                             <fieldset class="form-group">
-                                                <select class="form-select" name="kode_surat">
+                                                <select class="form-select" name="role">
                                                     @foreach($roles as $role)
                                                         <option value="{{ $role->id_role }}">{{ $role->role }}</option>
                                                     @endforeach
@@ -54,12 +54,14 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="email-id-vertical">Status</label>
+                                            <label for="status">Status</label>
                                             <fieldset class="form-group">
-                                                <select class="form-select" name="kode_surat">
-                                                    @foreach($roles as $role)
+                                                <select class="form-select" name="status">
+                                                    <!-- @foreach($roles as $role)
                                                         <option value="{{ $role->id_role }}">{{ $role->role }}</option>
-                                                    @endforeach
+                                                        @endforeach -->
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Inactive</option>
                                                 </select>
                                             </fieldset>
                                         </div>
@@ -68,9 +70,9 @@
                                         <div class="form-group">
                                             <label for="email-id-vertical">Program Studi</label>
                                             <fieldset class="form-group">
-                                                <select class="form-select" name="kode_surat">
-                                                    @foreach($roles as $role)
-                                                        <option value="{{ $role->id_role }}">{{ $role->role }}</option>
+                                                <select class="form-select" name="program_studi">
+                                                    @foreach($programStudi as $program_studi)
+                                                        <option value="{{ $program_studi->id_prodi }}">{{ $program_studi->program_studi }}</option>
                                                     @endforeach
                                                 </select>
                                             </fieldset>
@@ -80,17 +82,8 @@
                                         <div class="form-group">
                                             <label for="password-vertical">Password</label>
                                             <input type="password" id="password-vertical"
-                                                class="form-control" name="contact"
+                                                class="form-control" name="password"
                                                 placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class='form-check'>
-                                            <div class="checkbox">
-                                                <input type="checkbox" id="checkbox3"
-                                                    class='form-check-input' checked>
-                                                <label for="checkbox3">Remember Me</label>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end">

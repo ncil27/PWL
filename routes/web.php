@@ -9,6 +9,7 @@ use App\Http\Controllers\SuratSKLController;
 use App\Http\Controllers\SuratSKMAController;
 use App\Http\Controllers\SuratSLHSController;
 use App\Http\Controllers\SuratSPController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 
 use Illuminate\Support\Facades\Auth;
@@ -75,6 +76,7 @@ Route::delete('/manage-users/{id_user}', function ($id_user) {
 
 
 Route::get('/admin/create-user',[AdminController::class,'createUser'])->name('create-user');
+Route::post('/admin/create-user', [UserController::class, 'store'])->name('user.store');
 
 Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
 Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');

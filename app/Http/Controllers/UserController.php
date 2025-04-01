@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\ProgramStudi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,7 +26,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:20|unique:users,username',
+            'id_user' => 'required|string|max:9|unique:users,id_user',
+            'username' => 'required|string|max:20|unique:users,id_user',
             'name' => 'required|string|max:100',
             'email' => 'required|string|email|max:100|unique:users,email',
             'password' => 'required|string|min:6',
@@ -34,11 +36,14 @@ class UserController extends Controller
         ]);
 
         $user = User::create([
+            'id_user' => $request->id_user,
+            'username' => $request->id_user,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status,
+            'program_studi' => $request->program_studi,
         ]);
 
         return response()->json([
@@ -98,6 +103,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all(); // Ambil semua role dari tabel roles
-        return view('admin.create-user', compact('roles'));
+        $programStudi = ProgramStudi::all();
+        return view('admin.create-user', compact('roles','programStudi'));
     }
 }
