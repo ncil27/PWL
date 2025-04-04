@@ -14,9 +14,9 @@
                 <div class="card-content">
                     <div class="card-body">
                         <form action="{{ route('user.store') }}" method="POST" class="form form-vertical">
-                            @csrf
                             <div class="form-body">
                                 <div class="row">
+                                    @csrf
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="id_user">Id User</label>
@@ -45,7 +45,7 @@
                                         <div class="form-group">
                                             <label for="role">Role</label>
                                             <fieldset class="form-group">
-                                                <select class="form-select" name="role">
+                                                <select class="form-select" name="id_role">
                                                     @foreach($roles as $role)
                                                         <option value="{{ $role->id_role }}">{{ $role->role }}</option>
                                                     @endforeach
@@ -71,7 +71,7 @@
                                         <div class="form-group">
                                             <label for="email-id-vertical">Program Studi</label>
                                             <fieldset class="form-group">
-                                                <select class="form-select" name="program_studi">
+                                                <select class="form-select" name="id_prodi">
                                                     @foreach($programStudi as $program_studi)
                                                         <option value="{{ $program_studi->id_prodi }}">{{ $program_studi->program_studi }}</option>
                                                     @endforeach
@@ -111,4 +111,7 @@
         $('#userTable').DataTable();
     });
 </script>
+
+
 @endsection
+

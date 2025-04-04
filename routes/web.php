@@ -64,19 +64,25 @@ Route::get('/manage-user', function () {
     return view('roles.admin.manage-user', compact('users'));   
 })->name('manage-user');
 
-Route::get('/manage-users/{id_user}/edit', function ($id_user) {
-    $user = User::findOrFail($id_user);
-    return view('edit-user', compact('user'));
-})->name('edit-user');
+// Route::get('/manage-users/{id_user}/edit', function ($id_user) {
+//     $user = User::findOrFail($id_user);
+//     return view('edit-user', compact('user'));
+// })->name('edit-user');
 
-Route::delete('/manage-users/{id_user}', function ($id_user) {
-    User::destroy($id_user);
-    return redirect()->route('manage-users')->with('success', 'User deleted successfully.');
-})->name('delete-user');
+// Route::delete('/manage-users/{id_user}', function ($id_user) {
+//     User::destroy($id_user);
+//     return redirect()->route('manage-users')->with('success', 'User deleted successfully.');
+// })->name('delete-user');
 
 
+Route::delete('/admin/manage-user/{id_user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+// Tampilkan halaman edit
+Route::get('/admin/manage-user/{id_user}/edit', [UserController::class, 'edit'])->name('user.edit');
+// Update user
+Route::put('/admin/manage-user/{id_user}', [UserController::class, 'update'])->name('user.update');
 Route::get('/admin/create-user',[AdminController::class,'createUser'])->name('create-user');
-Route::post('/admin/create-user/store', [UserController::class, 'store'])->name('user.store');
+Route::post('/admin/create-user', [UserController::class, 'store'])->name('user.store');
 
 Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
 Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');

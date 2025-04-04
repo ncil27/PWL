@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\ProgramStudi;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,33 +26,45 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'id_user' => 'required|string|max:9|unique:users,id_user',
-            'username' => 'required|string|max:20|unique:users,id_user',
-            'name' => 'required|string|max:100',
-            'email' => 'required|string|email|max:100|unique:users,email',
-            'password' => 'required|string|min:6',
-            'role' => 'required|string|max:10',
-            'status' => 'required|string|max:11',
-        ]);
+        // $request->validate([
+        //     'id_user' => 'required|string|max:9|unique:users,id_user',
+        //     'username' => 'required|string|max:20|unique:users,id_user',
+        //     'name' => 'required|string|max:100',
+        //     'email' => 'required|string|email|max:100|unique:users,email',
+        //     'password' => 'required|string|min:6',
+        //     'role' => 'required|string|max:10',
+        //     'status' => 'required|string|max:11',
+        // ]);
+        Log::info('Data yang masuk:', $request->all());
 
-        $user = User::create([
-            'id_user' => $request->id_user,
-            'username' => $request->id_user,
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-            'status' => $request->status,
-            'program_studi' => $request->program_studi,
-        ]);
+        // dd($request->all());
+        try {
+            $user = User::create([
+                'id_user' => $request->id_user,
+                'username' => $request->id_user,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'id_role' => $request->id_role,
+                'status' => $request->status,
+                'id_prodi' => $request->id_prodi,
+            ]);
+            
 
-        return response()->json([
-            'message' => 'User berhasil dibuat',
-            'user' => $user
-        ], 201);
+            Log::info('User berhasil dibuat:', $user->toArray());
+
+            return redirect()->route('manage-user')->with('success', 'User berhasil ditambahkan');
+
+
+            // return response()->json([
+            //     'message' => 'User berhasil dibuat',
+            //     'user' => $user
+            // ], 201);
+    } catch (\Exception $e){
+        Log::error('Gagal buat user: ' . $e->getMessage());
+        return response()->json(['error' => 'Gagal menyimpan user'], 500);
     }
-
+}
     /**
      * Tampilkan detail user berdasarkan ID.
      */
@@ -61,19 +74,31 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+
+    // Tampilkan form edit
+    public function edit($id)
+    {
+        $roles = Role::all();
+        $user = User::findOrFail($id);
+        $programStudi = ProgramStudi::all();
+        return view('roles.admin.edit-user', compact('user','roles', 'programStudi'));
+    }
+
     /**
      * Update data user.
      */
     public function update(Request $request, $id)
     {
+        $roles = Role::all();
         $user = User::findOrFail($id);
 
         $request->validate([
             'name' => 'sometimes|string|max:100',
             'email' => 'sometimes|string|email|max:100|unique:users,email,' . $id . ',id_user',
             'password' => 'sometimes|string|min:6',
-            'role' => 'sometimes|string|max:10',
+            'id_role' => 'sometimes|string|max:10',
             'status' => 'sometimes|string|max:11',
+            'id_prodi' => 'sometimes|string|max:2',
         ]);
 
         if ($request->filled('password')) {
@@ -81,7 +106,7 @@ class UserController extends Controller
         }
 
         $user->update($request->except('password'));
-        return response()->json(['message' => 'User berhasil diperbarui']);
+        return redirect()->route('manage-user')->with('success', 'User berhasil diupdate');
     }
 
     /**
@@ -92,7 +117,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return response()->json(['message' => 'User berhasil dihapus']);
+        return redirect()->route('manage-user')->with('success', 'User berhasil dihapus');
     }
 
     public function users()
@@ -102,6 +127,7 @@ class UserController extends Controller
     }
     public function create()
     {
+        
         $roles = Role::all(); // Ambil semua role dari tabel roles
         $programStudi = ProgramStudi::all();
         return view('admin.create-user', compact('roles','programStudi'));

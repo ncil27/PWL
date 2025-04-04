@@ -32,8 +32,8 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role->role ?? 'Tidak Ada Role' }}</td>
                             <td>
-                                <a href="{{ route('edit-user', $user->id_user) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <form action="{{ route('delete-user', $user->id_user) }}" method="POST" class="d-inline">
+                                <a href="{{ route('user.edit', $user->id_user) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <form action="{{ route('user.destroy', $user->id_user) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
@@ -55,3 +55,17 @@
     });
 </script>
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if (session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Sukses!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        });
+    </script>
+@endif
