@@ -76,7 +76,7 @@ Route::delete('/manage-users/{id_user}', function ($id_user) {
 
 
 Route::get('/admin/create-user',[AdminController::class,'createUser'])->name('create-user');
-Route::post('/admin/create-user', [UserController::class, 'store'])->name('user.store');
+Route::post('/admin/create-user/store', [UserController::class, 'store'])->name('user.store');
 
 Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
 Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');
