@@ -1,28 +1,13 @@
-{{-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <h3>Form Pengajuan Surat Keterangan Mahasiswa Aktif</h3>
-    <form action="{{ route('surat.skma.store') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="keperluan" class="form-label">Keperluan</label>
-            <input type="text" class="form-control" id="keperluan" name="keperluan">
-        </div>
-        <button type="submit" class="btn btn-primary">Ajukan</button>
-    </form>
-</div>
-@endsection --}}
-
 @extends('coba-template.mahasiswa')
-
 @section('page-title', 'Surat Keterangan Mahasiswa Aktif')
-
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}"> 
+@endsection
 @section('content')
 <div class="page-heading">
     <h3>Surat Keterangan Mahasiswa Aktif</h3>
     <p>Form untuk mengajukan Surat Keterangan Mahasiswa Aktif</p>
-    {{-- <a href="{{ route('dashboard') }}" class="btn btn-primary mb-3">Kembali</a> --}}
+    <a href="{{ route('dashboard') }}" class="btn btn-primary mb-3">Kembali</a>
 </div>
 
 <section id="form-layouts">
@@ -87,7 +72,7 @@
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary me-1">Ajukan</button>
+                                    <button type="submit" class="btn btn-primary me-1" id="top-right" btn-outline-primary btn-block btn-lg>Ajukan</button>
                                     <button type="reset" class="btn btn-light-secondary">Reset</button>
                                 </div>
                             </div>
@@ -99,3 +84,12 @@
     </div>
 </section>
 @endsection
+
+<script src="{{asset('assets/static/js/components/dark.js')}}"></script>
+<script src="{{asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+
+
+<script src="{{asset('assets/compiled/js/app.js')}}"></script>
+
+<script src="{{asset('assets/extensions/toastify-js/src/toastify.js')}}"></script>
+<script src="{{asset('assets/static/js/pages/toastify.js')}}"></script>

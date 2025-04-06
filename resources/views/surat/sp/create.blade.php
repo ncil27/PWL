@@ -7,6 +7,15 @@
 @section('page-title', "Surat Pengantar Tugas")
 
 @section('content')
+<div class="page-heading d-flex justify-content-between">
+  <div>
+    <h3>Surat Pengantar Tugas</h3>
+    <p>Form untuk mengajukan Surat Pengantar Tugas Mata Kuliah</p>
+  </div>
+  <div>
+    <a href="{{ route('dashboard') }}" class="btn btn-primary mb-3">Kembali</a>
+  </div>
+</div>
 
 <section id="multiple-column-form">
     <div class="row match-height">
