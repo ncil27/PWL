@@ -15,10 +15,10 @@ class JenisSurat extends Model
     (3, 'Surat Keterangan Lulus');
     */
 
-    protected $table = 'jenis_surat'; // Nama tabel sesuai database
-    protected $primaryKey = 'kode_surat'; // Primary key sesuai database
+    protected $table = 'jenis_surat';
+    protected $primaryKey = 'kode_surat';
     // public $incrementing = false;
-    protected $keyType = 'int'; // Tipe data primary key
+    protected $keyType = 'int';
 
     protected $fillable = [
         'kode_surat',

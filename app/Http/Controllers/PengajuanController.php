@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
+use App\Models\SuratSKMA;
 use App\Models\JenisSurat;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -42,10 +43,10 @@ class PengajuanController extends Controller
         ]);
 
         Pengajuan::create([
-            // 'id_pengajuan' => uniqid('PGN_'), // ID unik
-            'id_mhs' => Auth::user()->id_user, // Ambil dari user yang login
+            // 'id_pengajuan' => uniqid('PGN_'),
+            'id_mhs' => Auth::user()->id_user,
             'kode_surat' => $request->kode_surat,
-            'status_pengajuan' => 0, // Default status pending
+            'status_pengajuan' => 0,
         ]);
 
         /*
@@ -82,18 +83,20 @@ class PengajuanController extends Controller
             'kode_surat' => 'required|exists:jenis_surat,kode_surat',
         ]);
 
-        Pengajuan::create([
-            // 'id_pengajuan' => uniqid('PGN_'), // ID unik
-            'id_mhs' => Auth::user()->id_user, // Ambil dari user yang login
+        $pengajuan = Pengajuan::create([
+            'id_mhs' => Auth::user()->id_user,
             'kode_surat' => $request->kode_surat,
-            'status_pengajuan' => 0, // Default status pending
+            'status_pengajuan' => 0,
         ]);
-        
+        $latestPengajuan = Pengajuan::where('id_mhs', Auth::user()->id_user)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
         $kodeSurat = $request->kode_surat;
 
         switch ($kodeSurat) {
             case '0':
-                return redirect()->route('surat.skma.create');
+                return redirect()->route('surat.skma.create', ['id_pengajuan' => $latestPengajuan->id_pengajuan]);
             case '1':
                 return redirect()->route('surat.sp.create');
             case '2':
@@ -103,6 +106,7 @@ class PengajuanController extends Controller
             default:
                 return redirect()->back()->with('error', 'Jenis surat tidak dikenali');
         }
+        
     }
 
 }

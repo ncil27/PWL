@@ -11,7 +11,7 @@ class SuratPengantar extends Model
 
     protected $table = 'surat_pengantar';
     protected $primaryKey = 'id_surat_pengantar';
-    public $incrementing = false; // Karena id_surat_pengantar berbentuk VARCHAR
+    public $incrementing = false;
 
     protected $fillable = [
         // 'id_surat_pengantar',

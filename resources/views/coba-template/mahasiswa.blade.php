@@ -37,34 +37,6 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-
-                        <li class="sidebar-item active ">
-                            <a href="/dashboard" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item {{ Request::is('pengantar-tugas')?'active':'' }}">
-                            <a href="/pengantar-tugas" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Surat Pengantar Tugas</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item {{ Request::is('keterangan-ma')?'active':'' }} ">
-                            <a href="" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Surat Keterangan Mahasiswa Aktif</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  {{ Request::is('keterangan-lulus')?'active':'' }}">
-                            <a href="" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Surat Keterangan Lulus</span>
-                            </a>
-                        </li> --}}
                         <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
                             <a href="/dashboard" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
@@ -109,7 +81,7 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-{{-- 
+            {{-- 
             <div class="page-heading">
                 <h3> @yield('page-title') </h3>
             </div> --}}

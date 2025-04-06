@@ -20,7 +20,7 @@
               <form action="{{ route('surat.sp.store') }}" method="POST" class="form">
                 @csrf
                 <div class="row">
-                  <div class="col-md-6 col-12">
+                  <div class="col-md-6 col-12 p-3">
                     <div class="form-group mandatory">
                       <label for="penerima-surat" class="card-title">Penerima Surat</label><br>
                       <label for="penerima-surat" class="form-label small">Informasikan secara lengkap: nama, jabatan, perusahaan, alamat</label><br>
@@ -36,7 +36,7 @@
                       />
                     </div>
                   </div>
-                  <div class="col-md-6 col-12">
+                  <div class="col-md-6 col-12 p-3">
                     <div class="form-group">
                     <label for="kode-mata-kuliah" class="card-title">Kode Mata Kuliah - Nama Mata Kuliah</label><br>
                     <label for="kode-mata-kuliah" class="form-label small">Informasikan Kode dan Nama Mata Kuliah yang memberi tugas ini</label><br>
@@ -51,22 +51,21 @@
                       />
                     </div>
                   </div>
-                  <div class="col-md-6 col-12">
+                  <div class="col-md-6 col-12 p-3">
                     <div class="form-group">
-                        <label for="semester" class="card-title">Semester</label><br>
-                        <label for="semester" class="form-label small">Isikan dengan semester yang ditempuh saat ini</label><br>
-                        <label for="semester" class="form-label small">Contoh: Reguler Genap 24/25</label>
-                      <input
-                        type="text"
-                        id="semester"
-                        class="form-control"
-                        placeholder="Semester Saat Ini"
-                        name="semester"
-                        required
-                      />
+                        <label for="periode" class="card-title">Periode</label><br>
+                        <label for="periode" class="form-label small">Pilih dengan semester yang ditempuh saat ini</label><br>
+                        <label for="periode" class="form-label small">Contoh: Reguler Genap 24/25</label>
+                      <select id="periode" class="form-select" name="periode" required>
+                          <option value="">Pilih Periode</option>
+                          @foreach($periode as $item)
+                              <option value="{{ $item->id_periode }}">{{ $item->nama_periode }}</option>
+                          @endforeach
+                      </select>
+                      
                     </div>
                   </div>
-                  <div class="col-md-6 col-12">
+                  <div class="col-md-6 col-12 p-3">
                     <div class="form-group">
                         <label for="data-mhsw" class="card-title">Data Mahasiswa</label><br>
                         <label for="data-mhsw" class="form-label small">Informasikan NRP dan Nama tiap mahasiswa</label><br>
@@ -81,11 +80,11 @@
                       />
                     </div>
                   </div>
-                  <div class="col-md-6 col-12">
+                  <div class="col-md-6 col-12 p-3">
                     <div class="form-group">
                         <label for="tujuan" class="card-title">Tujuan Surat</label><br>
                         <label for="tujuan" class="form-label small">Informasikan tujuan pembuatan surat ini</label><br>
-                        <label for="tujuan" class="form-label small">Contoh: Surat untuk melakukan wawancara kepada perusahaan tersebut</label>
+                        <label for="tujuan" class="form-label small">Contoh: Surat untuk melakukan wawancara kepada perusahaan </label>
                       <input
                         type="text"
                         id="tujuan"
@@ -96,7 +95,7 @@
                       />
                     </div>
                   </div>
-                  <div class="col-md-6 col-12">
+                  <div class="col-md-6 col-12 p-3">
                     <div class="form-group mandatory">
                         <label for="first-name-column" class="card-title">Topik Tugas</label><br>
                         <label for="first-name-column" class="form-label small">Informasikan topik tugas</label><br>
@@ -118,7 +117,6 @@
                           type="checkbox"
                           id="checkbox5"
                           class="form-check-input"
-                          checked
                           required
                           data-parsley-error-message="You have to accept our terms and conditions to proceed."
                         />
@@ -149,70 +147,4 @@
       </div>
     </div>
   </section>
-  <!-- // Basic multiple Column Form section end -->
-{{-- 
-    <section id="basic-vertical-layouts">
-        <div class="row match-height">
-            <div class="col-md-12 col-12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form action="{{ route('surat.sp.store') }}" method="POST" class="form form-vertical">
-                                @csrf
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Surat Ditujukan Kepada: </label>
-                                                <label>Informasikan secara lengkap nama, jabatan, nama perusahaan, dan alamat perusahaan.</label>
-                                                <label>(Contoh: Bapak John Doe, Kepala Personalia PT ABC, Jln. Cibogo No. 10 Bandung)</label>
-                                                <input type="text" class="form-control" name="penerima" placeholder="Nama Penerima" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Kode Mata Kuliah</label>
-                                                <input type="text" class="form-control" name="kode_matkul" placeholder="Kode Mata Kuliah" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Periode</label>
-                                                <input type="text" class="form-control" name="periode" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Tujuan</label>
-                                                <input type="text" class="form-control" name="tujuan" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Topik</label>
-                                                <input type="text" class="form-control" name="topik" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Data Mahasiswa (Pisahkan dengan koma jika lebih dari satu)</label>
-                                                <input type="text" class="form-control" name="data_mhs" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                            <button type="reset" class="btn btn-light-secondary">Reset</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-    
-
-    @endsection
+@endsection

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SuratPengantar;
+use App\Models\Periode;
 
 class SuratSPController extends Controller
 {
     public function create()
     {
-        return view('surat.sp.create');
+        $periode = Periode::all();
+        return view('surat.sp.create',compact( 'periode'));
     }
 
     public function store(Request $request)
@@ -19,8 +21,8 @@ class SuratSPController extends Controller
             // 'id_pengajuan' => 'required|string|max:9',
             'penerima' => 'required|string|max:100',
             'kode_matkul' => 'required|string|max:10',
-            'periode' => 'required|string|max:10',
-            'tujuan' => 'required|string|max:100',
+            'id_periode' => 'required|string|max:15',
+            'tujuan' => 'required|string|max:200',
             'topik' => 'required|string|max:100',
             'data_mhs' => 'required|string|max:150',
         ]);
@@ -34,7 +36,7 @@ class SuratSPController extends Controller
             'id_pengajuan' => $request->id_pengajuan,
             'penerima' => $request->penerima,
             'kode_matkul' => $request->kode_matkul,
-            'periode' => $request->periode,
+            'id_periode' => $request->id_periode,
             'tujuan' => $request->tujuan,
             'topik' => $request->topik,
             'data_mhs' => $request->data_mhs,

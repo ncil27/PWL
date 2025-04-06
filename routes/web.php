@@ -26,23 +26,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     $user = Auth::user(); // Ambil pengguna yang sedang login
-
-//     // Redirect berdasarkan role
-//     if ($user->id_role === 0) {
-//         return view('roles.admin.dashboard');
-//     } elseif ($user->id_role === 1) {
-//         return view('id_s.kaprodi.dashboard');
-//     } elseif ($user->id_role === 2) {
-//         return view('roles.mo.dashboard');
-//     } elseif ($user->id_role === 3) {
-//         return view('roles.mahasiswa.dashboard');
-//     }
-
-//     // Default jika tidak memiliki role
-//     abort(403, 'Unauthorized');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -87,12 +70,15 @@ Route::post('/admin/create-user', [UserController::class, 'store'])->name('user.
 Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
 Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');
 
-Route::get('/surat/skma/create', [SuratSKMAController::class, 'create'])->name('surat.skma.create');
+Route::get('/surat/skma/create/{id_pengajuan}', [SuratSKMAController::class, 'create'])->name('surat.skma.create');
+Route::post('/surat/skma/store', [SuratSKMAController::class, 'store'])->name('surat.skma.store');
+
 Route::get('/surat/sp/create', [SuratSPController::class, 'create'])->name('surat.sp.create');
+Route::post('/surat/sp/store', [SuratSPController::class, 'store'])->name('surat.sp.store');
+
 Route::get('/surat/skl/create', [SuratSKLController::class, 'create'])->name('surat.skl.create');
 Route::get('/surat/slhs/create', [SuratSLHSController::class, 'create'])->name('surat.slhs.create');
 
-Route::post('/surat/sp/store', [SuratSPController::class, 'store'])->name('surat.sp.store');
 
 
 
