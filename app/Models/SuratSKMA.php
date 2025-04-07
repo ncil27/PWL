@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SuratSKMA extends Model
 {
-    use HasFactory;
     protected $table = "surat_mhs_aktif";
     protected $primaryKey = "id_surat_skma";
     protected $increment = false;

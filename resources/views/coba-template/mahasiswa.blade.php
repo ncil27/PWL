@@ -145,7 +145,7 @@
     <script src="{{ asset('templates/assets/js/pages/dashboard.js') }}"></script>
 
     <script src="{{ asset('templates/assets/js/main.js') }}"></script>
-    
+    @yield('js_bwh')
 </body>
 
 </html>

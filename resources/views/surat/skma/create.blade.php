@@ -2,12 +2,15 @@
 @section('page-title', 'Surat Keterangan Mahasiswa Aktif')
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}"> 
+
 @endsection
 @section('content')
 <div class="page-heading">
     <h3>Surat Keterangan Mahasiswa Aktif</h3>
     <p>Form untuk mengajukan Surat Keterangan Mahasiswa Aktif</p>
-    <a href="{{ route('dashboard') }}" class="btn btn-primary mb-3">Kembali</a>
+    <a href="{{ route('pengajuan.destroyTemporary', $id_pengajuan) }}" class="btn btn-primary mb-3">Kembali</a>
+    {{-- <button id="btnBackDashboard" class="btn btn-primary mb-3">Kembali</button> --}}
+
 </div>
 
 <section id="form-layouts">
@@ -84,7 +87,9 @@
     </div>
 </section>
 @endsection
+@section('js_bwh')
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{asset('assets/static/js/components/dark.js')}}"></script>
 <script src="{{asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
 
@@ -93,3 +98,4 @@
 
 <script src="{{asset('assets/extensions/toastify-js/src/toastify.js')}}"></script>
 <script src="{{asset('assets/static/js/pages/toastify.js')}}"></script>
+@endsection

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SuratSKMA;
+use App\Models\Pengajuan;
 use App\Models\Periode;
-
+use Illuminate\Support\Facades\DB;
 class SuratSKMAController extends Controller
 {
     
@@ -34,6 +35,18 @@ class SuratSKMAController extends Controller
     
         return redirect()->route('dashboard')->with('success', 'Surat berhasil diajukan!');
     }
+
+    // public function destroyTemporary($id)
+    // {
+    //     // dd($id);
+    //     $pengajuan = Pengajuan::where('id_pengajuan', $id)->first();
+    //     if ($pengajuan) {
+    //         $pengajuan->delete();
+    //         DB::table('pengajuan')->where('id_pengajuan', $id)->delete();
+    //     }
+
+    //     return redirect('/dashboard')->with('success', 'Data pengajuan dibatalkan dan telah dihapus.');
+    // }
 
 
     

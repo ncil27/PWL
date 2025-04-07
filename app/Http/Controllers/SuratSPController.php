@@ -4,21 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SuratPengantar;
+use App\Models\Pengajuan;
 use App\Models\Periode;
+use Illuminate\Support\Facades\DB;
 
 class SuratSPController extends Controller
 {
-    public function create()
+    public function create($id_pengajuan)
     {
         $periode = Periode::all();
-        return view('surat.sp.create',compact( 'periode'));
+        return view('surat.sp.create',compact( 'id_pengajuan','periode'));
     }
 
     public function store(Request $request)
     {
-        // Validasi data input
+        // dd($request->all());
         $request->validate([
-            // 'id_pengajuan' => 'required|string|max:9',
+            'id_pengajuan' => 'required|exists:pengajuan,id_pengajuan',
             'penerima' => 'required|string|max:100',
             'kode_matkul' => 'required|string|max:10',
             'id_periode' => 'required|string|max:15',
@@ -27,10 +29,6 @@ class SuratSPController extends Controller
             'data_mhs' => 'required|string|max:150',
         ]);
 
-        // Generate ID Surat Pengantar (misalnya format: SP-YYYYMMDD-XXXX)
-        // $id_surat_pengantar = 'SP-' . date('Ymd') . '-' . Str::random(4);
-
-        // Simpan data ke tabel `surat_pengantar`
         SuratPengantar::create([
             // 'id_surat_pengantar' => $id_surat_pengantar,
             'id_pengajuan' => $request->id_pengajuan,
@@ -42,6 +40,6 @@ class SuratSPController extends Controller
             'data_mhs' => $request->data_mhs,
         ]);
 
-        return redirect()->back()->with('success', 'Surat Pengantar berhasil diajukan!');
+        return redirect()->route('dashboard')->with('success', 'Surat Pengantar berhasil diajukan!');
     }
 }

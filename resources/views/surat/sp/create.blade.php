@@ -11,9 +11,7 @@
   <div>
     <h3>Surat Pengantar Tugas</h3>
     <p>Form untuk mengajukan Surat Pengantar Tugas Mata Kuliah</p>
-  </div>
-  <div>
-    <a href="{{ route('dashboard') }}" class="btn btn-primary mb-3">Kembali</a>
+    <a href="{{ route('pengajuan.destroyTemporary', $id_pengajuan) }}" class="btn btn-primary mb-3">Kembali</a>
   </div>
 </div>
 
@@ -28,44 +26,46 @@
             <div class="card-body">
               <form action="{{ route('surat.sp.store') }}" method="POST" class="form">
                 @csrf
+                <input type="hidden" name="id_pengajuan" value="{{ $id_pengajuan }}">
+
                 <div class="row">
                   <div class="col-md-6 col-12 p-3">
                     <div class="form-group mandatory">
-                      <label for="penerima-surat" class="card-title">Penerima Surat</label><br>
-                      <label for="penerima-surat" class="form-label small">Informasikan secara lengkap: nama, jabatan, perusahaan, alamat</label><br>
-                      <label for="penerima-surat" class="form-label small">Contoh: Bapak John Doe, Kepala Bagian Teknologi, PT ABC, Jln. Surya Sumantri No. 999, Bandung</label>
+                      <label for="penerima" class="card-title">Penerima Surat</label><br>
+                      <label for="penerima" class="form-label small">Informasikan secara lengkap: nama, jabatan, perusahaan, alamat</label><br>
+                      <label for="penerima" class="form-label small">Contoh: Bapak John Doe, Kepala Bagian Teknologi, PT ABC, Jln. Surya Sumantri No. 999, Bandung</label>
 
                       <input
                         type="text"
-                        id="penerima-surat"
+                        id="penerima"
                         class="form-control"
                         placeholder="Penerima Surat"
-                        name="penerima-surat"
+                        name="penerima"
                         required
                       />
                     </div>
                   </div>
                   <div class="col-md-6 col-12 p-3">
                     <div class="form-group">
-                    <label for="kode-mata-kuliah" class="card-title">Kode Mata Kuliah - Nama Mata Kuliah</label><br>
-                    <label for="kode-mata-kuliah" class="form-label small">Informasikan Kode dan Nama Mata Kuliah yang memberi tugas ini</label><br>
-                    <label for="kode-mata-kuliah" class="form-label small">Contoh: IN240 - Pemrograman Web Lanjut</label>
+                    <label for="kode_matkul" class="card-title">Kode Mata Kuliah - Nama Mata Kuliah</label><br>
+                    <label for="kode_matkul" class="form-label small">Informasikan Kode dan Nama Mata Kuliah yang memberi tugas ini</label><br>
+                    <label for="kode_matkul" class="form-label small">Contoh: IN240 - Pemrograman Web Lanjut</label>
                       <input
                         type="text"
-                        id="kode-mata-kuliah"
+                        id="kode_matkul"
                         class="form-control"
                         placeholder="Kode Mata Kuliah - Nama Mata Kuliah"
-                        name="kode-mata-kuliah"
+                        name="kode_matkul"
                         required
                       />
                     </div>
                   </div>
                   <div class="col-md-6 col-12 p-3">
                     <div class="form-group">
-                        <label for="periode" class="card-title">Periode</label><br>
-                        <label for="periode" class="form-label small">Pilih dengan semester yang ditempuh saat ini</label><br>
-                        <label for="periode" class="form-label small">Contoh: Reguler Genap 24/25</label>
-                      <select id="periode" class="form-select" name="periode" required>
+                        <label for="id_periode" class="card-title">Periode</label><br>
+                        <label for="id_periode" class="form-label small">Pilih dengan semester yang ditempuh saat ini</label><br>
+                        <label for="id_periode" class="form-label small">Contoh: Reguler Genap 24/25</label>
+                      <select id="id_periode" class="form-select" name="id_periode" required>
                           <option value="">Pilih Periode</option>
                           @foreach($periode as $item)
                               <option value="{{ $item->id_periode }}">{{ $item->nama_periode }}</option>
@@ -76,14 +76,14 @@
                   </div>
                   <div class="col-md-6 col-12 p-3">
                     <div class="form-group">
-                        <label for="data-mhsw" class="card-title">Data Mahasiswa</label><br>
-                        <label for="data-mhsw" class="form-label small">Informasikan NRP dan Nama tiap mahasiswa</label><br>
-                        <label for="data-mhsw" class="form-label small">Contoh: 2372999 - John Doe; 2472888 - Steve John; dst</label>
+                        <label for="data_mhs" class="card-title">Data Mahasiswa</label><br>
+                        <label for="data_mhs" class="form-label small">Informasikan NRP dan Nama tiap mahasiswa</label><br>
+                        <label for="data_mhs" class="form-label small">Contoh: 2372999 - John Doe; 2472888 - Steve John; dst</label>
                       <input
                         type="text"
-                        id="data-mhsw"
+                        id="data_mhs"
                         class="form-control"
-                        name="data-mhsw"
+                        name="data_mhs"
                         placeholder="Data Mahasiswa"
                         required
                       />

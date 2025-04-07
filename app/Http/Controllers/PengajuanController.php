@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class PengajuanController extends Controller
 {
@@ -98,17 +99,28 @@ class PengajuanController extends Controller
             case '0':
                 return redirect()->route('surat.skma.create', ['id_pengajuan' => $latestPengajuan->id_pengajuan]);
             case '1':
-                return redirect()->route('surat.sp.create');
+                return redirect()->route('surat.sp.create', ['id_pengajuan' => $latestPengajuan->id_pengajuan]);
             case '2':
-                return redirect()->route('surat.skl.create');
+                return redirect()->route('surat.skl.create', ['id_pengajuan' => $latestPengajuan->id_pengajuan]);
             case '3':
-                return redirect()->route('surat.slhs.create');
+                return redirect()->route('surat.slhs.create', ['id_pengajuan' => $latestPengajuan->id_pengajuan]);
             default:
                 return redirect()->back()->with('error', 'Jenis surat tidak dikenali');
         }
         
     }
+    
+    public function destroyTemporary($id)
+    {
+        // dd($id);
+        $pengajuan = Pengajuan::where('id_pengajuan', $id)->first();
+        if ($pengajuan) {
+            $pengajuan->delete();
+            DB::table('pengajuan')->where('id_pengajuan', $id)->delete();
+        }
 
+        return redirect('/dashboard')->with('success', 'Data pengajuan dibatalkan dan telah dihapus.');
+    }
 }
 
 

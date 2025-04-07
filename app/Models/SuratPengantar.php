@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SuratPengantar extends Model
 {
-    use HasFactory;
 
     protected $table = 'surat_pengantar';
     protected $primaryKey = 'id_surat_pengantar';
@@ -18,10 +17,11 @@ class SuratPengantar extends Model
         'id_pengajuan',
         'penerima',
         'kode_matkul',
-        'periode',
+        'id_periode',
         'tujuan',
         'topik',
         'data_mhs',
+        'created_at',
     ];
 
     public $timestamps = true; // Untuk `created_at`
