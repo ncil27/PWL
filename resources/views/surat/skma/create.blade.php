@@ -3,14 +3,15 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}"> 
 
+
+
 @endsection
 @section('content')
 <div class="page-heading">
     <h3>Surat Keterangan Mahasiswa Aktif</h3>
     <p>Form untuk mengajukan Surat Keterangan Mahasiswa Aktif</p>
-    <a href="{{ route('pengajuan.destroyTemporary', $id_pengajuan) }}" class="btn btn-primary mb-3">Kembali</a>
-    {{-- <button id="btnBackDashboard" class="btn btn-primary mb-3">Kembali</button> --}}
-
+    {{-- <a href="{{ route('pengajuan.destroyTemporary', $id_pengajuan) }}" class="btn btn-primary mb-3" id="back">Kembali</a> --}}
+    <button type="button" id="btnBackDashboard" class="btn btn-primary mb-3">Kembali</button>
 </div>
 
 <section id="form-layouts">
@@ -88,14 +89,22 @@
 </section>
 @endsection
 @section('js_bwh')
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{asset('assets/static/js/components/dark.js')}}"></script>
-<script src="{{asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
-
-
-<script src="{{asset('assets/compiled/js/app.js')}}"></script>
-
-<script src="{{asset('assets/extensions/toastify-js/src/toastify.js')}}"></script>
-<script src="{{asset('assets/static/js/pages/toastify.js')}}"></script>
+<script>
+    document.getElementById('btnBackDashboard').addEventListener('click', function () {
+        Swal.fire({
+            title: 'Yakin kembali ke Dashboard?',
+            text: "Data pengajuan akan dihapus permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, kembali dan hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect ke route yang akan menghapus data pengajuan
+                window.location.href = "{{ route('pengajuan.destroyTemporary', $id_pengajuan) }}";
+            }
+        })
+    });
+</script>
 @endsection

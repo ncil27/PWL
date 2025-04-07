@@ -88,3 +88,20 @@
         </div>
     </div>
 @endsection
+@section('js_bwh')
+@if (session('success'))
+<script>
+    Toastify({
+        text: "{{ session('success') }}",
+        duration: 3000,
+        close: true,
+        gravity: "top", // top or bottom
+        position: "right", // left, center or right
+        backgroundColor: "#4CAF50", // hijau sukses
+        stopOnFocus: true,
+    }).showToast();
+</script>
+@endif
+
+    
+@endsection

@@ -11,7 +11,8 @@
   <div>
     <h3>Surat Pengantar Tugas</h3>
     <p>Form untuk mengajukan Surat Pengantar Tugas Mata Kuliah</p>
-    <a href="{{ route('pengajuan.destroyTemporary', $id_pengajuan) }}" class="btn btn-primary mb-3">Kembali</a>
+    {{-- <a href="{{ route('pengajuan.destroyTemporary', $id_pengajuan) }}" class="btn btn-primary mb-3">Kembali</a> --}}
+    <button type="button" id="btnBackDashboard" class="btn btn-primary mb-3">Kembali</button>
   </div>
 </div>
 
@@ -156,4 +157,24 @@
       </div>
     </div>
   </section>
+@endsection
+@section('js_bwh')
+<script>
+  document.getElementById('btnBackDashboard').addEventListener('click', function () {
+      Swal.fire({
+          title: 'Yakin kembali ke Dashboard?',
+          text: "Data pengajuan akan dihapus permanen!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, kembali dan hapus'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Redirect ke route yang akan menghapus data pengajuan
+              window.location.href = "{{ route('pengajuan.destroyTemporary', $id_pengajuan) }}";
+          }
+      })
+  });
+</script>
 @endsection
