@@ -101,9 +101,9 @@ class PengajuanController extends Controller
             case '1':
                 return redirect()->route('surat.sp.create', ['id_pengajuan' => $latestPengajuan->id_pengajuan]);
             case '2':
-                return redirect()->route('surat.skl.create', ['id_pengajuan' => $latestPengajuan->id_pengajuan]);
-            case '3':
                 return redirect()->route('surat.slhs.create', ['id_pengajuan' => $latestPengajuan->id_pengajuan]);
+            case '3':
+                return redirect()->route('surat.skl.create', ['id_pengajuan' => $latestPengajuan->id_pengajuan]);
             default:
                 return redirect()->back()->with('error', 'Jenis surat tidak dikenali');
         }

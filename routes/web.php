@@ -71,18 +71,19 @@ Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pe
 Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');
 Route::get('/surat/*/*/{id_pengajuan}/back', [PengajuanController::class, 'destroyTemporary'])->name('pengajuan.destroyTemporary');
 
-// Route::get('/pengajuan/hapus/{id}', [SuratSKMAController::class, 'destroyTemporary'])
-//     ->name('pengajuan.destroyTemporary');
-// Route::get('/surat/skma/create/{id_pengajuan}/back', [SuratSKMAController::class, 'destroyTemporary'])->name('skma.back');
+
 Route::get('/surat/skma/create/{id_pengajuan}', [SuratSKMAController::class, 'create'])->name('surat.skma.create');
 Route::post('/surat/skma/store', [SuratSKMAController::class, 'store'])->name('surat.skma.store');
 
-// Route::get('/surat/sp/create/{id_pengajuan}/back', [SuratSPController::class, 'destroyTemporary'])->name('sp.back');
 Route::get('/surat/sp/create/{id_pengajuan}', [SuratSPController::class, 'create'])->name('surat.sp.create');
 Route::post('/surat/sp/store', [SuratSPController::class, 'store'])->name('surat.sp.store');
 
+
+Route::get('/surat/slhs/create/{id_pengajuan}', [SuratSLHSController::class, 'create'])->name('surat.slhs.create');
+Route::post('/surat/slhs/store', [SuratSLHSController::class, 'store'])->name('surat.slhs.store');
+
+
 Route::get('/surat/skl/create', [SuratSKLController::class, 'create'])->name('surat.skl.create');
-Route::get('/surat/slhs/create', [SuratSLHSController::class, 'create'])->name('surat.slhs.create');
 
 
 

@@ -33,22 +33,8 @@ class SuratSKMAController extends Controller
             'id_periode' => $request->id_periode,
         ]);
     
-        return redirect()->route('dashboard')->with('success', 'Surat berhasil diajukan!');
+        return redirect()->route('dashboard')->with('success', 'Surat SKMA berhasil diajukan!');
     }
-
-    // public function destroyTemporary($id)
-    // {
-    //     // dd($id);
-    //     $pengajuan = Pengajuan::where('id_pengajuan', $id)->first();
-    //     if ($pengajuan) {
-    //         $pengajuan->delete();
-    //         DB::table('pengajuan')->where('id_pengajuan', $id)->delete();
-    //     }
-
-    //     return redirect('/dashboard')->with('success', 'Data pengajuan dibatalkan dan telah dihapus.');
-    // }
-
-
     
 }
 
