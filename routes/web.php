@@ -83,7 +83,8 @@ Route::get('/surat/slhs/create/{id_pengajuan}', [SuratSLHSController::class, 'cr
 Route::post('/surat/slhs/store', [SuratSLHSController::class, 'store'])->name('surat.slhs.store');
 
 
-Route::get('/surat/skl/create', [SuratSKLController::class, 'create'])->name('surat.skl.create');
+Route::get('/surat/skl/create/{id_pengajuan}', [SuratSKLController::class, 'create'])->name('surat.skl.create');
+Route::post('/surat/skl/store', [SuratSKLController::class, 'store'])->name('surat.skl.store');
 
 
 
