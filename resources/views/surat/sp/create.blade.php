@@ -171,7 +171,6 @@
           confirmButtonText: 'Ya, kembali dan hapus'
       }).then((result) => {
           if (result.isConfirmed) {
-              // Redirect ke route yang akan menghapus data pengajuan
               window.location.href = "{{ route('pengajuan.destroyTemporary', $id_pengajuan) }}";
           }
       })
