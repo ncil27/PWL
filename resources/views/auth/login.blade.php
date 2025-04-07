@@ -1,54 +1,121 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="en">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ARSA</title>
+    <link rel="icon" href="{{ asset('templates/assets/images/logo/logo_bulet.png') }}" type="image/x-icon">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('templates/assets/css/bootstrap.css') }}">
 
-        <!-- Username -->
-        {{-- <div>
-            <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
-        </div> --}}
+    <link rel="stylesheet" href="{{ asset('templates/assets/vendors/iconly/bold.css') }}">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    <link rel="stylesheet" href="{{ asset('templates/assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('templates/assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('templates/assets/css/app.css') }}">
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(to right, #e0e7ff, #f1f5ff);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+        .login-box {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+            padding: 3rem 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+        .login-box h2 {
+            font-weight: 800;
+            color: #3f51b5;
+        }
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+        .btn-login {
+            width: 100%;
+            border-radius: 2rem;
+        }
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+        .logo {
+            width: 80px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box text-center">
+        <img src="{{ asset('templates/assets/images/logo/logo_bulet.png') }}" alt="Logo ARSA" class="logo">
+        <h2>Login</h2>
+        <p class="mb-4 text-muted">Academic Request & Submission App</p>
+
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <!-- Email Address -->
+            <!-- Email -->
+            <div class="form-group mandatory mt-3">
+                <label for="email" class="card-title">Email</label>
+                <input
+                type="email"
+                id="email"
+                class="form-control @error('email') is-invalid @enderror"
+                placeholder="Masukkan Email Anda"
+                name="email"
+                value="{{ old('email') }}"
+                required
+                autofocus
+                />
+            
+                @error('email')
+                <div class="invalid-feedback mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            
+            <!-- Password -->
+            <div class="form-group mandatory mt-4">
+                <label for="password" class="card-title">Password</label>
+                <input
+                type="password"
+                id="password"
+                class="form-control @error('password') is-invalid @enderror"
+                placeholder="Password"
+                name="password"
+                required
+                autocomplete="current-password"
+                />
+            
+                @error('password')
+                <div class="invalid-feedback mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-login mt-4">Login</button>
+        </form>
+    </div>
+
+
+    <script src="{{ asset('templates/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('templates/assets/js/bootstrap.bundle.min.js') }}"></script>
+
+    <script src="{{ asset('templates/assets/vendors/apexcharts/apexcharts.js') }}"></script>
+    <script src="{{ asset('templates/assets/js/pages/dashboard.js') }}"></script>
+
+    <script src="{{ asset('templates/assets/js/main.js') }}"></script>
+</body>
+
+</html>
