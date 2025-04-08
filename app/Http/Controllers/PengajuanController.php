@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
+use App\Models\User;
 use App\Models\SuratSKMA;
 use App\Models\JenisSurat;
 use App\Http\Requests\ProfileUpdateRequest;
@@ -16,6 +17,14 @@ use Illuminate\Support\Facades\DB;
 
 class PengajuanController extends Controller
 {
+
+    public function index()
+    {
+        $pengajuans = Pengajuan::with('jenisSurat')->get();; // Atau filter berdasarkan prodi
+        $users = User::all(); // Atau filter berdasarkan prodi
+        
+        return view('roles.kaprodi.manage-pengajuan', compact('pengajuans','users'));
+    }
     // public function store(Request $request)
     // {
     //     // Validasi input
@@ -121,6 +130,30 @@ class PengajuanController extends Controller
 
         return redirect('/dashboard')->with('success', 'Data pengajuan dibatalkan dan telah dihapus.');
     }
+
+    // public function updateStatus(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'status_pengajuan' => 'required|in:approved,ditolak',
+    //     ]);
+
+    //     $pengajuan = Pengajuan::findOrFail($id);
+    //     $pengajuan->status_pengajuan = $request->status_pengajuan;
+    //     $pengajuan->save();
+
+    //     return redirect()->route('pengajuan.index') // ganti sesuai route dashboard kaprodi
+    //         ->with('success', 'Status pengajuan berhasil diperbarui.');
+    // }
+
+    public function updateStatus(Request $request, $id)
+{
+    $pengajuan = Pengajuan::findOrFail($id);
+    $pengajuan->status_pengajuan = $request->status;
+    $pengajuan->save();
+
+    return redirect()->route('kaprodi.manage-pengajuan')->with('success', 'Status pengajuan berhasil diperbarui.');
+
+}
 }
 
 

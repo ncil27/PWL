@@ -11,6 +11,7 @@ use App\Http\Controllers\SuratSLHSController;
 use App\Http\Controllers\SuratSPController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MOController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -25,18 +26,14 @@ Route::get('/', function () {
 
     // ->middleware(['auth', 'verified'])
 
-Route::get('/dashboard', function(){
-    return view('dashboard');
-    })->name('dashboard');
-Route::get('/manage-user', function () {
-    $users = User::all(); // Mengambil semua data users
-    return view('roles.admin.manage-user', compact('users'));   
-    })->name('manage-user');
-Route::get('/manage-user', function () {
-    return view('manage-user');
-    })->name('manage-user');
+// Route::get('/dashboard', function(){
+//     return view('dashboard');
+//     })->name('dashboard');
+// Route::get('/manage-user', function () {
+//     return view('manage-user');
+//     })->name('manage-user');
 
-Route::get('/dashboard/mahasiswa', [DashboardController::class, 'dashboardMahasiswa'])->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -48,7 +45,12 @@ Route::middleware('auth')->group(function () {
 
 
     Route::middleware(['role:0'])->group(function(){
-
+        
+        // Route::get('/manage-user', function () {
+        //     $users = User::all(); // Mengambil semua data users
+        //     return view('roles.admin.manage-user', compact('users'));   
+        //     })->name('manage-user');
+        Route::get('/manage-user', [UserController::class, 'index'])->name('admin.manage-user');
         Route::delete('/admin/manage-user/{id_user}', [UserController::class, 'destroy'])->name('user.destroy');
     
         // Tampilkan halaman edit
@@ -57,8 +59,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/manage-user/{id_user}', [UserController::class, 'update'])->name('user.update');
         Route::get('/admin/create-user',[AdminController::class,'createUser'])->name('create-user');
         Route::post('/admin/create-user', [UserController::class, 'store'])->name('user.store');
-
+        
     });
+    
+    Route::put('/pengajuan/{id_pengajuan}/update-status', [PengajuanController::class, 'updateStatus'])->name('pengajuan.updateStatus');
+    Route::get('/manage-pengajuan', [PengajuanController::class, 'index'])->name('kaprodi.manage-pengajuan');
+    Route::post('/mo/upload-file', [MOController::class, 'create'])->name('mo.create');
 
     Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
     Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');

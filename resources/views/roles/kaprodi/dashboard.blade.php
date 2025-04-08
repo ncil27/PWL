@@ -1,4 +1,4 @@
-@extends('coba-template.try-temp');
+@extends('coba-template.kaprodi');
 @section('page-title', "Dashboard")
 
 
