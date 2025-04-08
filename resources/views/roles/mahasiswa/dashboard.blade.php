@@ -9,6 +9,8 @@
 <p>Selamat datang di sistem pengajuan surat akademik. Di sini, kamu bisa dengan mudah mengajukan berbagai jenis surat yang dibutuhkan, melihat riwayat pengajuan, serta memantau status proses persetujuan secara real-time.</p>
 
 <br><br><br> --}}
+
+{{-- header --}}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h3>Halo, {{ Auth::user()->name }}!</h3>
@@ -18,24 +20,11 @@
         </p>
     </div>
 </div>
-{{-- 
-<div class="col-md-12 col-sm-12">
-    <div class="card">
-        <div class="card-content">
-            <div class="card-body">
-                <h4 class="card-title">Pengajuan Surat/Dokumen Mahasiswa</h4>
-                <p class="card-text">
-                    Mengajukan surat-surat ataupun dokumen-dokumen keperluan Mahasiswa dapat dengan mudah melalui tombol di bawah ini
-                </p>
-                <button class="btn btn-primary block">Ajukan Surat</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
 
-
-    <div class="col-md-6 col-12">
-        <div class="card">
+{{-- main --}}
+{{-- ini tombol pengajuan surat --}}
+    <div class="col-md-6 col-6">
+        <div class="card ">
             <div class="card-content">
                 <div class="card-body">
                     <div class="form-group">
@@ -87,6 +76,39 @@
             </div>
         </div>
     </div>
+
+{{-- ini tombol riwayat surat --}}
+<div class="col-12 col-md-12">
+    <div class="card py-4">
+        <div class="card-header py-0">
+            <h4 class="card-title">Riwayat Pengajuan Surat</h4>
+            <p> Riwayat pengajuan surat dan dokumen keperluan Mahasiswa yang pernah diajukan</p>
+        </div>
+        <div class="card-content ">
+            <div class="card-body py-0">
+                <!-- Table with outer spacing -->
+                <div class="table-responsive">
+                    <table class="table table-lg table-hover">
+                        <thead>
+                            <tr>
+                                <th>Jenis Surat</th>
+                                <th>Tanggal Pengajuan</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-bold-500">Michael Right</td>
+                                <td>$15/hr</td>
+                                <td class="text-bold-500">UI/UX</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('js_bwh')
 @if (session('success'))

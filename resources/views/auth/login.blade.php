@@ -33,7 +33,7 @@
             box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
             padding: 3rem 2rem;
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
         }
 
         .login-box h2 {
@@ -49,6 +49,10 @@
         .logo {
             width: 80px;
             margin-bottom: 1rem;
+        }
+        .form-group{
+            display: flex;
+            flex-wrap: wrap 
         }
     </style>
 </head>
@@ -66,44 +70,29 @@
             <!-- Email -->
             <div class="form-group mandatory mt-3">
                 <label for="email" class="card-title">Email</label>
-                <input
-                type="email"
-                id="email"
-                class="form-control @error('email') is-invalid @enderror"
-                placeholder="Masukkan Email Anda"
-                name="email"
-                value="{{ old('email') }}"
-                required
-                autofocus
-                />
-            
+                <input type="email" id="email" class="form-control @error('email') is-invalid @enderror"
+                    placeholder="Masukkan Email Anda" name="email" value="{{ old('email') }}" required autofocus />
+
                 @error('email')
-                <div class="invalid-feedback mt-1">
-                    {{ $message }}
-                </div>
+                    <div class="invalid-feedback mt-1">
+                        {{ $message }}
+                    </div>
                 @enderror
             </div>
-            
+
             <!-- Password -->
             <div class="form-group mandatory mt-4">
                 <label for="password" class="card-title">Password</label>
-                <input
-                type="password"
-                id="password"
-                class="form-control @error('password') is-invalid @enderror"
-                placeholder="Password"
-                name="password"
-                required
-                autocomplete="current-password"
-                />
-            
+                <input type="password" id="password" class="form-control @error('password') is-invalid @enderror"
+                    placeholder="Password" name="password" required autocomplete="current-password" />
+
                 @error('password')
-                <div class="invalid-feedback mt-1">
-                    {{ $message }}
-                </div>
+                    <div class="invalid-feedback mt-1">
+                        {{ $message }}
+                    </div>
                 @enderror
             </div>
-            
+
             <button type="submit" class="btn btn-primary btn-login mt-4">Login</button>
         </form>
     </div>

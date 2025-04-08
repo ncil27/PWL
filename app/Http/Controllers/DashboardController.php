@@ -25,6 +25,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JenisSurat;
+use App\Models\SuratSKMA;
 
 class DashboardController extends Controller
 {
@@ -41,7 +42,14 @@ class DashboardController extends Controller
         } elseif ($user->id_role === 2) {
             return view('roles.mo.dashboard', compact('jenisSurat'));
         } elseif ($user->id_role === 3) {
-            return view('roles.mahasiswa.dashboard', compact('jenisSurat'));
+            $id_user = auth()->user()->id_user;
+
+            $riwayat = SuratSKMA::where('id_user', $id_user)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+                
+            return view('roles.mahasiswa.dashboard', compact('jenisSurat','riwayat'));
+            // return view('roles.mahasiswa.dashboard', compact('jenisSurat'));
         }
 
         // Default jika tidak memiliki role

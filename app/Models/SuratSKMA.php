@@ -20,5 +20,10 @@ class SuratSKMA extends Model
     ];
     
     public $timestamps = true; // Untuk `created_at`
+    public function suratSKMA()
+    {
+        return $this->hasMany(SuratSKMA::class, 'id_user', 'id_user');
+    }
+    
 
 }

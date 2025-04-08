@@ -35,6 +35,10 @@ class SuratSKMAController extends Controller
     
         return redirect()->route('dashboard')->with('success', 'Surat SKMA berhasil diajukan!');
     }
-    
+    public function riwayatPengajuan()
+    {
+        $riwayat = auth()->user()->suratSKMA()->latest()->get();
+        return view('roles.mahasiswa.riwayat', compact('riwayat'));
+    }
 }
 
