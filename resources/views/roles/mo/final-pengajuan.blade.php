@@ -1,4 +1,4 @@
-@extends('coba-template.kaprodi') 
+@extends('coba-template.mo') 
 
 @section('title', 'Manage Pengajuan')
 
@@ -16,26 +16,23 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>ID Pengajuan</th>
-                        <th>ID Mahasiswa</th>
+                        <th>Nama</th>
                         <th>Jenis Surat</th>
-                        <th>Tanggal Pengajuan</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        <th>Upload Surat</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pengajuans as $pengajuan)
-                    <tr data-bs-toggle="modal" data-bs-target="#modalDetail{{ $pengajuan->id_pengajuan }}" style="cursor: pointer;">
+                    @foreach ($pengajuan as $p)
+                    <tr data-bs-toggle="modal" data-bs-target="#modalDetail{{ $p->id_pengajuan }}" style="cursor: pointer;">
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $pengajuan->id_pengajuan }}</td>
-                        <td>{{ $pengajuan->id_mhs }}</td>
-                        <td>{{ $pengajuan->jenisSurat->jenis_surat}}</td>
-                        <td>{{ $pengajuan->created_at }}</td>
+                        <td>{{ $p->id_pengajuan }}</td>
+                        <td>{{ $p->id_mhs }}</td>
+                        <td>{{ $p->jenisSurat->jenis_surat}}</td>
+                        <td>{{ $p->created_at }}</td>
                         <td>
                             @php
-                                $status = $pengajuan->statusSurat;
+                                $status = $p->statusSurat;
                             @endphp
 
                             <span class="badge bg-{{ $status['color'] }}">

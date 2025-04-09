@@ -36,12 +36,17 @@ class Pengajuan extends Model
     }
 
     public function getStatusSuratAttribute()
-{
-    return [
-        0 => ['label' => 'Diajukan', 'color' => 'info'],
-        1 => ['label' => 'Diproses ke MO', 'color' => 'warning'],
-        2 => ['label' => 'Disetujui', 'color' => 'success'],
-        3 => ['label' => 'Ditolak', 'color' => 'danger'],
-    ][$this->status_pengajuan] ?? ['label' => 'Diajukan', 'color' => 'info'];
-}
+    {
+        return [
+            0 => ['label' => 'Diajukan', 'color' => 'info'],
+            1 => ['label' => 'Diproses ke MO', 'color' => 'warning'],
+            2 => ['label' => 'Disetujui', 'color' => 'success'],
+            3 => ['label' => 'Ditolak', 'color' => 'danger'],
+        ][$this->status_pengajuan] ?? ['label' => 'Diajukan', 'color' => 'info'];
+    }
+
+    public function skma()
+    {
+        return $this->hasOne(SuratSKMA::class, 'id_pengajuan', 'id_pengajuan');
+    }
 }

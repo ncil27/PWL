@@ -25,6 +25,15 @@ class PengajuanController extends Controller
         
         return view('roles.kaprodi.manage-pengajuan', compact('pengajuans','users'));
     }
+
+    public function indexForMO()
+    {
+        $pengajuans = Pengajuan::with(['user', 'jenisSurat'])
+                        ->where('status_pengajuan', 1)
+                        ->get();
+
+        return view('roles.mo.final-pengajuan', compact('pengajuans'));
+    }
     // public function store(Request $request)
     // {
     //     // Validasi input
