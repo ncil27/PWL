@@ -23,53 +23,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pengajuan as $p)
-                    <tr data-bs-toggle="modal" data-bs-target="#modalDetail{{ $p->id_pengajuan }}" style="cursor: pointer;">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $p->id_pengajuan }}</td>
-                        <td>{{ $p->id_mhs }}</td>
-                        <td>{{ $p->jenisSurat->jenis_surat}}</td>
-                        <td>{{ $p->created_at }}</td>
-                        <td>
-                            @php
-                                $status = $p->statusSurat;
-                            @endphp
-
-                            <span class="badge bg-{{ $status['color'] }}">
-                                {{ $status['label'] }}
-                            </span>
-                        </td>
-
-                        <td>
-                            @if ($pengajuan->status_pengajuan == 0)
-                                <!-- Tombol checklist -->
-                                <form action="{{ route('pengajuan.updateStatus', $pengajuan->id_pengajuan) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="status" value="1">
-                                    <button type="submit" class="btn btn-success btn-sm" title="Setujui">
-                                        <i class="bi bi-check-square-fill"></i>
-                                    </button>
-                                </form>
-
-                                <!-- Tombol X -->
-                                <form action="{{ route('pengajuan.updateStatus', $pengajuan->id_pengajuan) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="status" value="4">
-                                    <button type="submit" class="btn btn-danger btn-sm" title="Tolak">
-                                        <i class="bi bi-x-square-fill"></i>
-                                    </button>
-                                </form>
-                            @else
-                                <span class="text-muted">{{ $status['label'] }}</span>
-                            @endif
-                        </td>
-                    </tr>
+                    @foreach($pengajuan as $p)
+                        <tr >
+                            <td data-bs-toggle="modal" data-bs-target="#modalDetail{{ $p->id_pengajuan }}" style="cursor: pointer;">{{ $p->mahasiswa->name }}</td>
+                            <td data-bs-toggle="modal" data-bs-target="#modalDetail{{ $p->id_pengajuan }}" style="cursor: pointer;">{{ $p->jenisSurat->jenis_surat }}</td>
+                            <td>
+                                <span class="badge bg-{{ $p->status_surat['color'] }}">
+                                    {{ $p->status_surat['label'] }}
+                                </span>
+                            </td>
+                            <td>
+                                @if ($p->file_surat)
+                                    <span class="text-success fw-bold">Done</span>
+                                @else
+                                    <form action="{{ route('mo.uploadSurat', $p->id_pengajuan) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="file_surat" class="form-control" accept="application/pdf" required>
+                                        <button type="submit" class="btn btn-primary btn-sm mt-2">Upload</button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
-            @foreach ($pengajuans as $p)
+            @foreach ($pengajuan as $p)
                 <!-- Modal -->
                 <div class="modal fade" id="modalDetail{{ $p->id_pengajuan }}" tabindex="-1" role="dialog" aria-labelledby="modalDetailLabel{{ $p->id_pengajuan }}" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -90,6 +68,15 @@
                                     <p><strong>Periode:</strong> {{ $p->skma->id_periode }}</p>
                                 @else
                                     <p>Data belum tersedia.</p>
+                                @endif
+                                @if ($p->file_surat)
+                                    <div class="mb-3">
+                                        <h6>Preview Surat</h6>
+                                        <iframe src="{{ asset('storage/' . $p->file_surat) }}" 
+                                                width="100%" height="400px" frameborder="0"></iframe>
+                                    </div>
+                                @else
+                                    <p class="text-muted">Belum ada file surat yang diupload.</p>
                                 @endif
                             </div>
                             <div class="modal-footer">

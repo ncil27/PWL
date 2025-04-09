@@ -63,9 +63,12 @@ Route::middleware('auth')->group(function () {
         
     });
     
+    Route::post('/mo/upload-surat/{id}', [PengajuanController::class, 'uploadSurat'])->name('mo.uploadSurat');
     Route::get('/manage-pengajuan', [KaprodiController::class, 'managePengajuan'])->name('kaprodi.manage-pengajuan');
     
     Route::get('/final-pengajuan', [MOController::class, 'finalPengajuan'])->name('mo.final-pengajuan');
+    Route::get('/mo/detail/{id}', [MOController::class, 'showDetail'])->name('mo.showDetail');
+
     Route::put('/pengajuan/{id_pengajuan}/update-status', [PengajuanController::class, 'updateStatus'])->name('pengajuan.updateStatus');
     Route::get('/manage-pengajuan', [PengajuanController::class, 'index'])->name('kaprodi.manage-pengajuan');
     Route::post('/mo/upload-file', [MOController::class, 'create'])->name('mo.create');
