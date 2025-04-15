@@ -53,21 +53,52 @@
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalDetailLabel{{ $p->id_pengajuan }}">Detail Pengajuan SKMA</h5>
+                                <h5 class="modal-title" id="modalDetailLabel{{ $p->id_pengajuan }}">Detail Pengajuan Surat</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <i data-feather="x"></i>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                @if ($p->skma)
-                                    <p><strong>Nama:</strong> {{ $p->mahasiswa->name }}</p>
-                                    <p><strong>Jenis Surat:</strong> {{ $p->jenisSurat->jenis_surat }}</p>
-                                    <p><strong>Status:</strong> {{ $p->status_surat['label'] }}</p>
-                                    <p><strong>Semester:</strong> {{ $p->skma->semester }}</p>
-                                    <p><strong>Keperluan:</strong> {{ $p->skma->keperluan }}</p>
-                                    <p><strong>Periode:</strong> {{ $p->skma->id_periode }}</p>
-                                @else
-                                    <p>Data belum tersedia.</p>
+                                <p><strong>Nama:</strong> {{ $p->mahasiswa->name }}</p>
+                                <p><strong>Jenis Surat:</strong> {{ $p->jenisSurat->jenis_surat }}</p>
+
+                                @if ($p->kode_surat == 0)
+                                    @php
+                                        $detail = $skma->where('id_pengajuan', $p->id_pengajuan)->first();
+                                    @endphp
+                                    @if ($detail)
+                                        <p><strong>Semester:</strong> {{ $detail->semester }}</p>
+                                        <p><strong>Keperluan:</strong> {{ $detail->keperluan }}</p>
+                                        <p><strong>Periode:</strong> {{ $detail->id_periode }}</p>
+                                    @endif
+
+                                @elseif ($p->kode_surat == 1)
+                                    @php
+                                        $detail = $pengantar->where('id_pengajuan', $p->id_pengajuan)->first();
+                                    @endphp
+                                    @if ($detail)
+                                        <p><strong>Tujuan:</strong> {{ $detail->penerima }}</p>
+                                        <p><strong>Mata Kuliah:</strong> {{ $detail->kode_matkul }}</p>
+                                        <p><strong>Keperluan:</strong> {{ $detail->keperluan }}</p>
+                                        <p><strong>Topik:</strong> {{ $detail->topik }}</p>
+                                        <p><strong>Data Mahasiswa:</strong> {{ $detail->data_mhs }}</p>
+                                    @endif
+
+                                @elseif ($p->kode_surat == 2)
+                                    @php
+                                        $detail = $laporan->where('id_pengajuan', $p->id_pengajuan)->first();
+                                    @endphp
+                                    @if ($detail)
+                                        <p><strong>Keperluan:</strong> {{ $detail->keperluan }}</p>
+                                    @endif
+
+                                @elseif ($p->kode_surat == 3)
+                                    @php
+                                        $detail = $kelulusan->where('id_pengajuan', $p->id_pengajuan)->first();
+                                    @endphp
+                                    @if ($detail)
+                                        <p><strong>Tanggal Lulus:</strong> {{ $detail->tgl_lulus }}</p>
+                                    @endif
                                 @endif
                                 @if ($p->file_surat)
                                     <div class="mb-3">

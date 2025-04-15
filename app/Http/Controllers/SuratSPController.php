@@ -7,6 +7,7 @@ use App\Models\SuratPengantar;
 use App\Models\Pengajuan;
 use App\Models\Periode;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SuratSPController extends Controller
 {
@@ -18,6 +19,8 @@ class SuratSPController extends Controller
 
     public function store(Request $request)
     {
+        Log::info('SPController dipanggil');
+        dd($request->all());
         // dd($request->all());
         $request->validate([
             'id_pengajuan' => 'required|exists:pengajuan,id_pengajuan',
@@ -30,7 +33,6 @@ class SuratSPController extends Controller
         ]);
 
         SuratPengantar::create([
-            // 'id_surat_pengantar' => $id_surat_pengantar,
             'id_pengajuan' => $request->id_pengajuan,
             'penerima' => $request->penerima,
             'kode_matkul' => $request->kode_matkul,
@@ -39,6 +41,18 @@ class SuratSPController extends Controller
             'topik' => $request->topik,
             'data_mhs' => $request->data_mhs,
         ]);
+
+
+        /// ini yang gue coba tambahin -cecil
+        $surat = new SuratPengantar();
+        $surat->id_pengajuan = $request->id_pengajuan;
+        $surat->penerima = $request->penerima;
+        $surat->kode_matkul = $request->kode_matkul;
+        $surat->id_periode = $request->id_periode;
+        $surat->data_mhs = $request->data_mhs;
+        $surat->tujuan = $request->tujuan;
+        $surat->topik = $request->topik;
+        $surat->save();
 
         return redirect()->route('dashboard')->with('success', 'Surat Pengantar berhasil diajukan!');
     }

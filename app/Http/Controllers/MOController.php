@@ -15,8 +15,14 @@ class MOController extends Controller
 {
     public function finalPengajuan(){
         $pengajuan = Pengajuan::with(['skma', 'mahasiswa', 'jenisSurat'])->get();
-    return view('roles.mo.final-pengajuan', compact('pengajuan'));
-    }
+        $skma = SuratSKMA::all();
+        $pengantar = SuratPengantar::all();
+        $laporan = SuratLHS::all();
+        $kelulusan = SuratSKL::all();
+
+        return view('roles.mo.final-pengajuan', compact(
+            'pengajuan', 'skma', 'pengantar', 'laporan', 'kelulusan'
+        ));
     // public function store(Request $request){
     //     // $validatedData = $request->validate([
 
@@ -28,7 +34,8 @@ class MOController extends Controller
 
     //     return redirect()->back()->with('success', 'Surat berhasil dikirim!');
 
-    // }
+    // 
+    }
 
     public function showDetail($id_pengajuan)
     {
@@ -52,12 +59,19 @@ class MOController extends Controller
             default:
                 // handle unknown type
                 break;
+            }
+
+        $skma = SuratSKMA::all();
+        $pengantar = SuratPengantar::all();
+        $laporan = SuratLHS::all();
+        $kelulusan = SuratSKL::all();
+    
+        return view('roles.mo.final-pengajuan', compact('pengajuan', 'skma', 'pengantar', 'laporan', 'kelulusan'));
         }
 
-        return response()->json([
-            'pengajuan' => $pengajuan,
-            'detail' => $detail
-        ]);
-    }
-
+        // return response()->json([
+        //     'pengajuan' => $pengajuan,
+        //     'detail' => $detail
+        // ]);
 }
+
