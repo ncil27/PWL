@@ -78,7 +78,7 @@
     </div>
 
 {{-- ini tombol riwayat surat --}}
-<div class="col-12 col-md-12">
+{{-- <div class="col-12 col-md-12">
     <div class="card py-4">
         <div class="card-header py-0">
             <h4 class="card-title">Riwayat Pengajuan Surat</h4>
@@ -108,7 +108,53 @@
             </div>
         </div>
     </div>
+</div> --}}
+
+<!-- Riwayat Pengajuan -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5 class="mb-0">Riwayat Pengajuan Surat Mahasiswa Aktif</h5>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Semester</th>
+                    <th>Keperluan</th>
+                    <th>Periode</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($riwayat as $no => $item)
+                    <tr>
+                        <td>{{ $no + 1 }}</td>
+                        <td>{{ $item->semester }}</td>
+                        <td>{{ $item->keperluan }}</td>
+                        <td>{{ $item->status_pengajuan }}</td>
+                        <td>
+                            @if ($item->status_pengajuan == 0)
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            @elseif ($item->status_pengajuan == 1)
+                                <span class="badge bg-success">Diproses</span>
+                            @elseif ($item->status_pengajuan == 2)
+                            <span class="badge bg-success">Diterima</span>
+                            @elseif ($item->status_pengajuan == 3)
+                                <span class="badge bg-danger">Ditolak</span>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Belum ada pengajuan surat.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
+
 @endsection
 @section('js_bwh')
 @if (session('success'))
@@ -117,13 +163,12 @@
         text: "{{ session('success') }}",
         duration: 3000,
         close: true,
-        gravity: "top", // top or bottom
-        position: "right", // left, center or right
-        backgroundColor: "#4CAF50", // hijau sukses
+        gravity: "top",
+        position: "right", 
+        backgroundColor: "#4CAF50",
         stopOnFocus: true,
     }).showToast();
 </script>
 @endif
-
     
 @endsection

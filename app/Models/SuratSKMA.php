@@ -24,6 +24,9 @@ class SuratSKMA extends Model
     {
         return $this->hasMany(SuratSKMA::class, 'id_user', 'id_user');
     }
-    
+    public function pengajuan()
+    {
+        return $this->belongsTo(Pengajuan::class, 'id_pengajuan');
+    }
 
 }

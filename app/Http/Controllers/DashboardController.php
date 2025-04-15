@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\JenisSurat;
 use App\Models\SuratSKMA;
 
+
 class DashboardController extends Controller
 {
     public function index()
@@ -43,10 +44,15 @@ class DashboardController extends Controller
             return view('roles.mo.dashboard', compact('jenisSurat'));
         } elseif ($user->id_role === 3) {
             $id_user = auth()->user()->id_user;
+            
+            $riwayat = \DB::table('surat_mhs_aktif')
+            ->join('pengajuan', 'surat_mhs_aktif.id_pengajuan', '=', 'pengajuan.id_pengajuan')
+            ->where('pengajuan.id_mhs', $id_user)
+            ->orderBy('surat_mhs_aktif.created_at', 'desc')
+            ->select('surat_mhs_aktif.*', 'pengajuan.status_pengajuan') // <-- ini penting
+            ->get();
 
-            $riwayat = SuratSKMA::where('id_user', $id_user)
-                        ->orderBy('created_at', 'desc')
-                        ->get();
+            
                 
             return view('roles.mahasiswa.dashboard', compact('jenisSurat','riwayat'));
             // return view('roles.mahasiswa.dashboard', compact('jenisSurat'));
