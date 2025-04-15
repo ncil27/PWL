@@ -25,6 +25,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JenisSurat;
+use App\Models\SuratSKMA;
+
 
 class DashboardController extends Controller
 {
@@ -41,7 +43,19 @@ class DashboardController extends Controller
         } elseif ($user->id_role === 2) {
             return view('roles.mo.dashboard', compact('jenisSurat'));
         } elseif ($user->id_role === 3) {
-            return view('roles.mahasiswa.dashboard', compact('jenisSurat'));
+            $id_user = auth()->user()->id_user;
+            
+            $riwayat = \DB::table('surat_mhs_aktif')
+            ->join('pengajuan', 'surat_mhs_aktif.id_pengajuan', '=', 'pengajuan.id_pengajuan')
+            ->where('pengajuan.id_mhs', $id_user)
+            ->orderBy('surat_mhs_aktif.created_at', 'desc')
+            ->select('surat_mhs_aktif.*', 'pengajuan.status_pengajuan') // <-- ini penting
+            ->get();
+
+            
+                
+            return view('roles.mahasiswa.dashboard', compact('jenisSurat','riwayat'));
+            // return view('roles.mahasiswa.dashboard', compact('jenisSurat'));
         }
 
         // Default jika tidak memiliki role

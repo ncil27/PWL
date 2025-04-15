@@ -1,7 +1,7 @@
 status pengajuan:
 0 = diajukan
-1 = diproses ke MO
-2 = diproses ke Kaprodi
+1 = diproses ke Kaprodi
+2 = diproses ke MO
 3 = disetujui
 4 = ditolak
 
@@ -16,3 +16,4 @@ Jenis surat:
 1 = 'Surat Pengantar Tugas'
 2 = 'Laporan Hasil Studi'
 3 = 'Surat Keterangan Lulus'
+        cn65

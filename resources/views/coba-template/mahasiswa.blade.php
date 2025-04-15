@@ -66,6 +66,20 @@
                                     </a>
                                 </li>
                                 @endif
+                                @if (Request::is('surat/slhs*'))
+                                <li class="submenu-item active">
+                                    <a href="" class='submenu-link'>
+                                        <span>SLHS <br>(Sedang Diisi)</span>
+                                    </a>
+                                </li>
+                                @endif
+                                @if (Request::is('surat/SKL*'))
+                                <li class="submenu-item active">
+                                    <a href="" class='submenu-link'>
+                                        <span>Surat Ket. Lulus <br>(Sedang Diisi)</span>
+                                    </a>
+                                </li>
+                                @endif
                             </ul>
 
                         </li>

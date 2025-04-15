@@ -9,6 +9,8 @@
 <p>Selamat datang di sistem pengajuan surat akademik. Di sini, kamu bisa dengan mudah mengajukan berbagai jenis surat yang dibutuhkan, melihat riwayat pengajuan, serta memantau status proses persetujuan secara real-time.</p>
 
 <br><br><br> --}}
+
+{{-- header --}}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h3>Halo, {{ Auth::user()->name }}!</h3>
@@ -18,24 +20,11 @@
         </p>
     </div>
 </div>
-{{-- 
-<div class="col-md-12 col-sm-12">
-    <div class="card">
-        <div class="card-content">
-            <div class="card-body">
-                <h4 class="card-title">Pengajuan Surat/Dokumen Mahasiswa</h4>
-                <p class="card-text">
-                    Mengajukan surat-surat ataupun dokumen-dokumen keperluan Mahasiswa dapat dengan mudah melalui tombol di bawah ini
-                </p>
-                <button class="btn btn-primary block">Ajukan Surat</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
 
-
-    <div class="col-md-6 col-12">
-        <div class="card">
+{{-- main --}}
+{{-- ini tombol pengajuan surat --}}
+    <div class="col-md-6 col-6">
+        <div class="card ">
             <div class="card-content">
                 <div class="card-body">
                     <div class="form-group">
@@ -87,6 +76,85 @@
             </div>
         </div>
     </div>
+
+{{-- ini tombol riwayat surat --}}
+{{-- <div class="col-12 col-md-12">
+    <div class="card py-4">
+        <div class="card-header py-0">
+            <h4 class="card-title">Riwayat Pengajuan Surat</h4>
+            <p> Riwayat pengajuan surat dan dokumen keperluan Mahasiswa yang pernah diajukan</p>
+        </div>
+        <div class="card-content ">
+            <div class="card-body py-0">
+                <!-- Table with outer spacing -->
+                <div class="table-responsive">
+                    <table class="table table-lg table-hover">
+                        <thead>
+                            <tr>
+                                <th>Jenis Surat</th>
+                                <th>Tanggal Pengajuan</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-bold-500">Michael Right</td>
+                                <td>$15/hr</td>
+                                <td class="text-bold-500">UI/UX</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+<!-- Riwayat Pengajuan -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5 class="mb-0">Riwayat Pengajuan Surat Mahasiswa Aktif</h5>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Semester</th>
+                    <th>Keperluan</th>
+                    <th>Periode</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($riwayat as $no => $item)
+                    <tr>
+                        <td>{{ $no + 1 }}</td>
+                        <td>{{ $item->semester }}</td>
+                        <td>{{ $item->keperluan }}</td>
+                        <td>{{ $item->status_pengajuan }}</td>
+                        <td>
+                            @if ($item->status_pengajuan == 0)
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            @elseif ($item->status_pengajuan == 1)
+                                <span class="badge bg-success">Diproses</span>
+                            @elseif ($item->status_pengajuan == 2)
+                            <span class="badge bg-success">Diterima</span>
+                            @elseif ($item->status_pengajuan == 3)
+                                <span class="badge bg-danger">Ditolak</span>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Belum ada pengajuan surat.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+
 @endsection
 @section('js_bwh')
 @if (session('success'))
@@ -95,13 +163,12 @@
         text: "{{ session('success') }}",
         duration: 3000,
         close: true,
-        gravity: "top", // top or bottom
-        position: "right", // left, center or right
-        backgroundColor: "#4CAF50", // hijau sukses
+        gravity: "top",
+        position: "right", 
+        backgroundColor: "#4CAF50",
         stopOnFocus: true,
     }).showToast();
 </script>
 @endif
-
     
 @endsection
