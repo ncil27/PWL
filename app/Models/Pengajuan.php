@@ -34,4 +34,19 @@ class Pengajuan extends Model
     {
         return $this->belongsTo(JenisSurat::class, 'kode_surat', 'kode_surat');
     }
+
+    public function getStatusSuratAttribute()
+    {
+        return [
+            0 => ['label' => 'Diajukan', 'color' => 'info'],
+            1 => ['label' => 'Diproses ke MO', 'color' => 'warning'],
+            2 => ['label' => 'Disetujui', 'color' => 'success'],
+            3 => ['label' => 'Ditolak', 'color' => 'danger'],
+        ][$this->status_pengajuan] ?? ['label' => 'Diajukan', 'color' => 'info'];
+    }
+
+    public function skma()
+    {
+        return $this->hasOne(SuratSKMA::class, 'id_pengajuan', 'id_pengajuan');
+    }
 }

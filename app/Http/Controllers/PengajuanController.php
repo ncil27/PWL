@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
+use App\Models\User;
 use App\Models\SuratSKMA;
 use App\Models\JenisSurat;
 use App\Http\Requests\ProfileUpdateRequest;
@@ -16,6 +17,23 @@ use Illuminate\Support\Facades\DB;
 
 class PengajuanController extends Controller
 {
+
+    public function index()
+    {
+        $pengajuans = Pengajuan::with('jenisSurat')->get();; // Atau filter berdasarkan prodi
+        $users = User::all(); // Atau filter berdasarkan prodi
+        
+        return view('roles.kaprodi.manage-pengajuan', compact('pengajuans','users'));
+    }
+
+    public function indexForMO()
+    {
+        $pengajuans = Pengajuan::with(['user', 'jenisSurat'])
+                        ->where('status_pengajuan', 1)
+                        ->get();
+
+        return view('roles.mo.final-pengajuan', compact('pengajuans'));
+    }
     // public function store(Request $request)
     // {
     //     // Validasi input
@@ -121,6 +139,53 @@ class PengajuanController extends Controller
 
         return redirect('/dashboard')->with('success', 'Data pengajuan dibatalkan dan telah dihapus.');
     }
+
+    // public function updateStatus(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'status_pengajuan' => 'required|in:approved,ditolak',
+    //     ]);
+
+    //     $pengajuan = Pengajuan::findOrFail($id);
+    //     $pengajuan->status_pengajuan = $request->status_pengajuan;
+    //     $pengajuan->save();
+
+    //     return redirect()->route('pengajuan.index') // ganti sesuai route dashboard kaprodi
+    //         ->with('success', 'Status pengajuan berhasil diperbarui.');
+    // }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $pengajuan = Pengajuan::findOrFail($id);
+        $pengajuan->status_pengajuan = $request->status;
+        $pengajuan->save();
+
+        return redirect()->route('kaprodi.manage-pengajuan')->with('success', 'Status pengajuan berhasil diperbarui.');
+
+    }
+
+    public function uploadSurat(Request $request, $id)
+    {
+        $request->validate([
+            'file_surat' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        if ($request->hasFile('file_surat')) {
+            $file = $request->file('file_surat');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('surat', $filename);
+
+            // Simpan nama file ke kolom di database (pastikan kolom file_surat sudah ada)
+            $pengajuan->file_surat = $path;
+            $pengajuan->status_pengajuan = 2; // Disetujui final
+            $pengajuan->save();
+        }
+
+        return redirect()->back()->with('success', 'Surat berhasil diupload.');
+    }
+
 }
 
 

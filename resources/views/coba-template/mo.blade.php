@@ -43,10 +43,10 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ Request::is('manage-user')?'active':'' }} ">
-                            <a href="/manage-user" class='sidebar-link'>
+                        <li class="sidebar-item {{ Request::is('manage-pengajuan')?'active':'' }} ">
+                            <a href="/final-pengajuan" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>Manage User</span>
+                                <span>Manage Pengajuan</span>
                             </a>
                         </li>
 

@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $users = User::all();
         $roles = Role::all();
-        return response()->json($users);
+        return view('roles.admin.manage-user', compact('users'));
     }
 
     /**
@@ -102,11 +102,11 @@ class UserController extends Controller
         ]);
 
         if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
+            $user->password = Hash::make($request->password);   
         }
 
         $user->update($request->except('password'));
-        return redirect()->route('manage-user')->with('success', 'User berhasil diupdate');
+        return redirect()->route('admin.manage-user')->with('success', 'User berhasil diupdate');
     }
 
     /**

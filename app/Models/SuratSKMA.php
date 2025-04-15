@@ -21,4 +21,9 @@ class SuratSKMA extends Model
     
     public $timestamps = true; // Untuk `created_at`
 
+    public function pengajuan()
+    {
+        return $this->belongsTo(Pengajuan::class, 'id_pengajuan', 'id_pengajuan');
+    }
+
 }

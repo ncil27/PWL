@@ -11,6 +11,8 @@ use App\Http\Controllers\SuratSLHSController;
 use App\Http\Controllers\SuratSPController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MOController;
+use App\Http\Controllers\KaprodiController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -18,77 +20,81 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pengantar-tugas', function () {
-    return view('roles.mahasiswa.pengantar-tugas');
-});
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
-Route::get('/manage-user', function () {
-    return view('manage-user');
-})->middleware(['auth', 'verified'])->name('manage-user');
+    // ->middleware(['auth', 'verified'])
 
-Route::get('/dashboard/mahasiswa', [DashboardController::class, 'dashboardMahasiswa'])->middleware('auth');
+// Route::get('/dashboard', function(){
+//     return view('dashboard');
+//     })->name('dashboard');
+// Route::get('/manage-user', function () {
+//     return view('manage-user');
+//     })->name('manage-user');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+
+
+
+
+    Route::middleware(['role:0'])->group(function(){
+        
+        // Route::get('/manage-user', function () {
+        //     $users = User::all(); // Mengambil semua data users
+        //     return view('roles.admin.manage-user', compact('users'));   
+        //     })->name('manage-user');
+        Route::get('/manage-user', [UserController::class, 'index'])->name('admin.manage-user');
+        Route::delete('/admin/manage-user/{id_user}', [UserController::class, 'destroy'])->name('user.destroy');
+    
+        // Tampilkan halaman edit
+        Route::get('/admin/manage-user/{id_user}/edit', [UserController::class, 'edit'])->name('user.edit');
+        // Update user
+        Route::put('/admin/manage-user/{id_user}', [UserController::class, 'update'])->name('user.update');
+        Route::get('/admin/create-user',[AdminController::class,'createUser'])->name('create-user');
+        Route::post('/admin/create-user', [UserController::class, 'store'])->name('user.store');
+        
+    });
+    
+    Route::post('/mo/upload-surat/{id}', [PengajuanController::class, 'uploadSurat'])->name('mo.uploadSurat');
+    Route::get('/manage-pengajuan', [KaprodiController::class, 'managePengajuan'])->name('kaprodi.manage-pengajuan');
+    
+    Route::get('/final-pengajuan', [MOController::class, 'finalPengajuan'])->name('mo.final-pengajuan');
+    Route::get('/mo/detail/{id}', [MOController::class, 'showDetail'])->name('mo.showDetail');
+
+    Route::put('/pengajuan/{id_pengajuan}/update-status', [PengajuanController::class, 'updateStatus'])->name('pengajuan.updateStatus');
+    Route::get('/manage-pengajuan', [PengajuanController::class, 'index'])->name('kaprodi.manage-pengajuan');
+    Route::post('/mo/upload-file', [MOController::class, 'create'])->name('mo.create');
+
+    Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
+    Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');
+    Route::get('/surat/*/*/{id_pengajuan}/back', [PengajuanController::class, 'destroyTemporary'])->name('pengajuan.destroyTemporary');
+
+
+    Route::get('/surat/skma/create/{id_pengajuan}', [SuratSKMAController::class, 'create'])->name('surat.skma.create');
+    Route::post('/surat/skma/store', [SuratSKMAController::class, 'store'])->name('surat.skma.store');
+
+    Route::get('/surat/sp/create/{id_pengajuan}', [SuratSPController::class, 'create'])->name('surat.sp.create');
+    Route::post('/surat/sp/store', [SuratSPController::class, 'store'])->name('surat.sp.store');
+
+
+    Route::get('/surat/slhs/create/{id_pengajuan}', [SuratSLHSController::class, 'create'])->name('surat.slhs.create');
+    Route::post('/surat/slhs/store', [SuratSLHSController::class, 'store'])->name('surat.slhs.store');
+
+
+    Route::get('/surat/skl/create/{id_pengajuan}', [SuratSKLController::class, 'create'])->name('surat.skl.create');
+    Route::post('/surat/skl/store', [SuratSKLController::class, 'store'])->name('surat.skl.store');
+
+
+
 });
-
-Route::get('/manage-user', function () {
-    $users = User::all(); // Mengambil semua data users
-    return view('roles.admin.manage-user', compact('users'));   
-})->name('manage-user');
-
-// Route::get('/manage-users/{id_user}/edit', function ($id_user) {
-//     $user = User::findOrFail($id_user);
-//     return view('edit-user', compact('user'));
-// })->name('edit-user');
-
-// Route::delete('/manage-users/{id_user}', function ($id_user) {
-//     User::destroy($id_user);
-//     return redirect()->route('manage-users')->with('success', 'User deleted successfully.');
-// })->name('delete-user');
-
-
-Route::delete('/admin/manage-user/{id_user}', [UserController::class, 'destroy'])->name('user.destroy');
-
-// Tampilkan halaman edit
-Route::get('/admin/manage-user/{id_user}/edit', [UserController::class, 'edit'])->name('user.edit');
-// Update user
-Route::put('/admin/manage-user/{id_user}', [UserController::class, 'update'])->name('user.update');
-Route::get('/admin/create-user',[AdminController::class,'createUser'])->name('create-user');
-Route::post('/admin/create-user', [UserController::class, 'store'])->name('user.store');
-
-Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
-Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');
-Route::get('/surat/*/*/{id_pengajuan}/back', [PengajuanController::class, 'destroyTemporary'])->name('pengajuan.destroyTemporary');
-
-
-Route::get('/surat/skma/create/{id_pengajuan}', [SuratSKMAController::class, 'create'])->name('surat.skma.create');
-Route::post('/surat/skma/store', [SuratSKMAController::class, 'store'])->name('surat.skma.store');
-
-Route::get('/surat/sp/create/{id_pengajuan}', [SuratSPController::class, 'create'])->name('surat.sp.create');
-Route::post('/surat/sp/store', [SuratSPController::class, 'store'])->name('surat.sp.store');
-
-
-Route::get('/surat/slhs/create/{id_pengajuan}', [SuratSLHSController::class, 'create'])->name('surat.slhs.create');
-Route::post('/surat/slhs/store', [SuratSLHSController::class, 'store'])->name('surat.slhs.store');
-
-
-Route::get('/surat/skl/create/{id_pengajuan}', [SuratSKLController::class, 'create'])->name('surat.skl.create');
-Route::post('/surat/skl/store', [SuratSKLController::class, 'store'])->name('surat.skl.store');
-
-
-
-
 
 
 

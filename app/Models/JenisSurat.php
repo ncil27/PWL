@@ -24,4 +24,8 @@ class JenisSurat extends Model
         'kode_surat',
         'jenis_surat',
     ];
+    public function pengajuans()
+{
+    return $this->hasMany(Pengajuan::class, 'kode_surat', 'kode_surat');
+}
 }
