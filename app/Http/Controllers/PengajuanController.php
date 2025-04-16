@@ -188,7 +188,22 @@ class PengajuanController extends Controller
         return redirect()->back()->with('success', 'Surat berhasil diupload.');
     }
 
-    
+    public function lihatFile($id)
+    {
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        if ($pengajuan->status != 2 || !$pengajuan->file_surat) {
+            abort(404, 'File belum tersedia atau pengajuan belum disetujui.');
+        }
+
+        $path = storage_path('app/public/surat/' . $pengajuan->file_surat);
+
+        if (!file_exists($path)) {
+            abort(404, 'File tidak ditemukan.');
+        }
+
+        return response()->file($path);
+    }
 
 
 }

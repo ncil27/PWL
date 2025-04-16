@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
     Route::post('/pengajuan/redirect', [PengajuanController::class, 'redirectSurat'])->name('pengajuan.redirect');
     Route::get('/surat/*/*/{id_pengajuan}/back', [PengajuanController::class, 'destroyTemporary'])->name('pengajuan.destroyTemporary');
-
+    Route::get('/lihat-surat/{id}', [PengajuanController::class, 'lihatFile'])->name('surat.lihat');
 
     Route::get('/surat/skma/create/{id_pengajuan}', [SuratSKMAController::class, 'create'])->name('surat.skma.create');
     Route::post('/surat/skma/store', [SuratSKMAController::class, 'store'])->name('surat.skma.store');    
