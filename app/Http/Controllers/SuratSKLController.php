@@ -28,4 +28,25 @@ class SuratSKLController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Surat SKL berhasil diajukan!');
     }
+
+    public function edit($id_pengajuan)
+    {
+        $skl = SuratSKL::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        return view('surat.skl.edit', compact('skl', 'id_pengajuan'));
+    }
+
+    public function update(Request $request, $id_pengajuan)
+    {
+        $request->validate([
+            'tgl_lulus' => 'required|date',
+        ]);
+
+        $skl = SuratSKL::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        $skl->update([
+            'tgl_lulus' => $request->tgl_lulus,
+        ]);
+
+        return redirect()->route('mahasiswa.riwayat')->with('success', 'Surat Keterangan Lulus berhasil diperbarui!');
+    }
+
 }

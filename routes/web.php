@@ -88,8 +88,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/surat/slhs/create/{id_pengajuan}', [SuratSLHSController::class, 'create'])->name('surat.slhs.create');
     Route::post('/surat/slhs/store', [SuratSLHSController::class, 'store'])->name('surat.slhs.store');
+    // Route::get('/surat/slhs/edit/{id_pengajuan}', [SuratLSHSController::class, 'edit'])->name('surat.slhs.edit');
+    // Route::put('/surat/slhs/update/{id_pengajuan}', [SuratLSHSController::class, 'update'])->name('surat.slhs.update');
+    
+
 
     Route::get('/surat/skl/create/{id_pengajuan}', [SuratSKLController::class, 'create'])->name('surat.skl.create');
+    Route::get('/surat/skl/edit/{id_pengajuan}', [SuratSKLController::class, 'edit'])->name('surat.skl.edit');
+    Route::put('/surat/skl/update/{id_pengajuan}', [SuratSKLController::class, 'update'])->name('surat.skl.update');
+
     Route::post('/surat/skl/store', [SuratSKLController::class, 'store'])->name('surat.skl.store');
 
     Route::get('/mahasiswa/riwayat', [DashboardController::class, 'riwayat'])->name('mahasiswa.riwayat');

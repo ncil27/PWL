@@ -54,6 +54,7 @@ class SuratSPController extends Controller
         $surat->topik = $request->topik;
         $surat->save();
 
+        
         return redirect()->route('dashboard')->with('success', 'Surat Pengantar berhasil diajukan!');
     }
 }
