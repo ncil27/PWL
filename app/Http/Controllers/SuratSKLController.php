@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SuratSKL;
+use App\Models\Pengajuan;
 
 
 class SuratSKLController extends Controller
@@ -31,8 +32,18 @@ class SuratSKLController extends Controller
 
     public function edit($id_pengajuan)
     {
-        $skl = SuratSKL::where('id_pengajuan', $id_pengajuan)->firstOrFail();
-        return view('surat.skl.edit', compact('skl', 'id_pengajuan'));
+        $pengajuan = Pengajuan::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+
+        if ($pengajuan->status_pengajuan != 0) {
+            return redirect()->route('mahasiswa.riwayat')->with('toast', [
+                'type' => 'error',
+                'message' => 'Pengajuan sudah diproses dan tidak dapat diedit.',
+            ]);
+        }
+        else{
+            $skl = SuratSKL::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+            return view('surat.skl.edit', compact('skl', 'id_pengajuan'));
+        }
     }
 
     public function update(Request $request, $id_pengajuan)

@@ -33,6 +33,13 @@ class SuratSLHSController extends Controller
 
     public function edit($id_pengajuan)
     {
+        $pengajuan = Pengajuan::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        if ($pengajuan->stastatus_pengajuantus != 0) {
+            return redirect()->route('mahasiswa.riwayat')->with('toast', [
+                'type' => 'error',
+                'message' => 'Pengajuan sudah diproses dan tidak dapat diedit.',
+            ]);
+        }
         $slhs = SuratLHS::where('id_pengajuan', $id_pengajuan)->firstOrFail();
         return view('surat.slhs.edit', compact('slhs', 'id_pengajuan',));
     }

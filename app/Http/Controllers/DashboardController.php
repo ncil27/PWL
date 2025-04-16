@@ -71,7 +71,7 @@ class DashboardController extends Controller
         // Ambil semua pengajuan milik mahasiswa ini
         $pengajuans = Pengajuan::with(['jenisSurat', 'skma', 'mahasiswa'])
             ->where('id_mhs', $user->id_user)
-            ->orderBy('id_pengajuan','asc')
+            ->orderBy('id_pengajuan','desc')
             ->paginate(25);
 
         return view('roles.mahasiswa.riwayat', compact('pengajuans'));

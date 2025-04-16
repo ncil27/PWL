@@ -167,4 +167,16 @@
 </script>
 @endif
     
+@if(session('toast'))
+    <script>
+        Toastify({
+            text: "{{ session('toast.message') }}",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "{{ session('toast.type') === 'error' ? '#ff5e57' : '#4fbe87' }}",
+        }).showToast();
+    </script>
+@endif
 @endsection

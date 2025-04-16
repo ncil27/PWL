@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('templates/assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('templates/assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('templates/assets/css/app.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     {{-- <link rel="shortcut icon" href="{{ asset('templates/assets/images/favicon.svg') }}" type="image/x-icon"> --}}
     @yield('css')
 </head>
@@ -46,6 +47,13 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
+                        <li class="sidebar-item {{ request()->routeIs('mahasiswa.riwayat') ? 'active' : '' }}">
+                            <a href="{{ route('mahasiswa.riwayat') }}" class="sidebar-link">
+                                <i class="bi bi-clipboard-data-fill"></i>
+                                <span>Riwayat Pengajuan</span>
+                            </a>
+                        </li>
+                        
                         @if (Request::is('surat/*'))
                         <li class="sidebar-item has-sub active">
                             <a href="" class='sidebar-link'>
@@ -84,37 +92,7 @@
 
                         </li>
                         @endif
-                        {{-- @if (Request::is('surat/skma*'))
-                        <li class="sidebar-item active">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-text-fill"></i>
-                                <span>SKMA (Sedang Diisi)</span>
-                            </a>
-                        </li>
-                        @endif --}}
-
-                            {{--                         
-                        <li class="sidebar-item {{ Request::is('surat.sp.create') ? 'active' : '' }}">
-                            <a href="/pengantar-tugas" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Surat Pengantar Tugas</span>
-                            </a>
-                        </li>
                         
-                        <li class="sidebar-item {{ Request::is('surat-keterangan-mahasiswa-aktif') ? 'active' : '' }}">
-                            <a href="/surat-keterangan-mahasiswa-aktif" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Surat Keterangan Mahasiswa Aktif</span>
-                            </a>
-                        </li>
-                        
-                        <li class="sidebar-item {{ Request::is('surat-keterangan-lulus') ? 'active' : '' }}">
-                            <a href="/surat-keterangan-lulus" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Surat Keterangan Lulus</span>
-                            </a>
-                        </li> --}}
-
                             <li class="sidebar-title">Account</li>
                             <a href="/logout" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>

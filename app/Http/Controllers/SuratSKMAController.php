@@ -42,10 +42,20 @@ class SuratSKMAController extends Controller
     }
     public function edit($id_pengajuan)
     {
+        $pengajuan = Pengajuan::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+
+        if ($pengajuan->status_pengajuan != 0) {
+            return redirect()->route('mahasiswa.riwayat')->with('toast', [
+                'type' => 'error',
+                'message' => 'Pengajuan sudah diproses dan tidak dapat diedit.',
+            ]);
+        }
+        else{
         $periode = Periode::all();
         $skma = SuratSKMA::where('id_pengajuan', $id_pengajuan)->firstOrFail();
         return view('surat.skma.edit', compact('skma', 'id_pengajuan','periode'));
-    }
+        }
+}
 
     public function update(Request $request, $id_pengajuan)
     {

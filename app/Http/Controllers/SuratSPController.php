@@ -60,6 +60,13 @@ class SuratSPController extends Controller
 
     public function edit($id_pengajuan)
     {
+        $pengajuan = Pengajuan::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        if ($pengajuan->status_pengajuan != 0) {
+            return redirect()->route('mahasiswa.riwayat')->with('toast', [
+                'type' => 'error',
+                'message' => 'Pengajuan sudah diproses dan tidak dapat diedit.',
+            ]);
+        }
         $periode = Periode::all();
         $sp = SuratPengantar::where('id_pengajuan', $id_pengajuan)->firstOrFail();
         return view('surat.sp.edit', compact('sp', 'id_pengajuan','periode'));
