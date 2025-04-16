@@ -42,6 +42,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'id_role','id_role'); 
     }
+    public function scopeAktif($query)
+    {
+        return $query->where('status', 1);
+    }
     
 
 }

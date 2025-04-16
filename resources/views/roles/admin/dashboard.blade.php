@@ -7,4 +7,5 @@
 
 <h3>Welcome, {{ Auth::user()->name }}!</h3>
 <p>Ini adalah halaman dashboard untuk Admin.</p>
+
 @endsection

@@ -33,10 +33,17 @@
                             <td>{{ $user->role->role ?? 'Tidak Ada Role' }}</td>
                             <td>
                                 <a href="{{ route('user.edit', $user->id_user) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <form action="{{ route('user.destroy', $user->id_user) }}" method="POST" class="d-inline">
+                                <!-- <form action="{{ route('user.destroy', $user->id_user) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                </form> -->
+                                <form action="{{ route('users.toggleStatus', $user->id_user) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-sm {{ $user->status === 1 ? 'btn-danger' : 'btn-success' }}">
+                                        {{ $user->status === 1 ? 'Deactive' : 'Active' }}
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -62,10 +69,21 @@
         document.addEventListener('DOMContentLoaded', function () {
             Swal.fire({
                 title: 'Sukses!',
-                text: "{{ session('success') }}",
+                text: "{{ session(key: 'success') }}",
                 icon: 'success',
                 confirmButtonText: 'OK'
             });
         });
+    </script>
+@endif
+@if(session('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: "{{ session('error') }}",
+        });
+    });
     </script>
 @endif

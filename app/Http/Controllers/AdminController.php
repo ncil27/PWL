@@ -17,6 +17,10 @@ class AdminController extends Controller
     {
         return view('roles.admin.manage-user');
     }
+    public function manageData()
+    {
+        return view('roles.admin.manage-data');
+    }
 
     public function createUser(){
         

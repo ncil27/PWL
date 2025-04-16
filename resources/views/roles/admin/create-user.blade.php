@@ -115,3 +115,27 @@
 
 @endsection
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if (session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Sukses!',
+                text: "{{ session(key: 'success') }}",
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        });
+    </script>
+@endif
+@if(session('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: "{{ session('error') }}",
+        });
+    });
+    </script>
+@endif

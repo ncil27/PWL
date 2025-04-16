@@ -13,7 +13,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MOController;
 use App\Http\Controllers\KaprodiController;
-
+use App\Http\Controllers\ProgramStudiController;
+use App\Models\ProgramStudi;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -60,7 +61,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/manage-user/{id_user}', [UserController::class, 'update'])->name('user.update');
         Route::get('/admin/create-user',[AdminController::class,'createUser'])->name('create-user');
         Route::post('/admin/create-user', [UserController::class, 'store'])->name('user.store');
-        
+        Route::put('/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
+
     });
 
     
@@ -101,6 +103,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/surat/skl/edit/{id_pengajuan}', [SuratSKLController::class, 'edit'])->name('surat.skl.edit');
     Route::put('/surat/skl/update/{id_pengajuan}', [SuratSKLController::class, 'update'])->name('surat.skl.update');
 
+    Route::resource('program-studi', ProgramStudiController::class)->middleware('auth');
+    Route::get('/manage-data', [ProgramStudiController::class, 'index'])->name('admin.manage-data');
 
     Route::get('/mahasiswa/riwayat', [DashboardController::class, 'riwayat'])->name('mahasiswa.riwayat');
 

@@ -49,6 +49,12 @@
                                 <span>Manage User</span>
                             </a>
                         </li>
+                        <li class="sidebar-item {{ Request::is('admin.manage-data')?'active':'' }} ">
+                            <a href="/manage-data" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>Manage Data</span>
+                            </a>
+                        </li>
 
                         <li class="sidebar-title">Account</li>
                         <a href="/logout" class='sidebar-link'>
@@ -94,6 +100,8 @@
     <script src="{{asset('templates/assets/js/main.js')}}">
         
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @yield('js_bwh')
 </body>
 
 </html>

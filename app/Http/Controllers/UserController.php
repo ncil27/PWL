@@ -18,53 +18,56 @@ class UserController extends Controller
     {
         $users = User::all();
         $roles = Role::all();
-        return view('roles.admin.manage-user', compact('users'));
+        $usersAktif = User::aktif()->get();
+
+        return view('roles.admin.manage-user', compact('users', 'usersAktif'));
     }
 
     /**
      * Tambahkan user baru.
      */
     public function store(Request $request)
-    {
-        // $request->validate([
-        //     'id_user' => 'required|string|max:9|unique:users,id_user',
-        //     'username' => 'required|string|max:20|unique:users,id_user',
-        //     'name' => 'required|string|max:100',
-        //     'email' => 'required|string|email|max:100|unique:users,email',
-        //     'password' => 'required|string|min:6',
-        //     'role' => 'required|string|max:10',
-        //     'status' => 'required|string|max:11',
-        // ]);
-        Log::info('Data yang masuk:', $request->all());
+        {
+            Log::info('Data yang masuk:', $request->all());
 
-        // dd($request->all());
-        try {
-            $user = User::create([
-                'id_user' => $request->id_user,
-                'username' => $request->id_user,
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'id_role' => $request->id_role,
-                'status' => $request->status,
-                'id_prodi' => $request->id_prodi,
-            ]);
+            // Cek dulu: kalau role = Kaprodi (id_role == 1)
             
+            try {
+                if ($request->id_role == 1) {
+                    $kaprodiAktif = User::where('id_role', 1)
+                        ->where('id_prodi', $request->id_prodi)
+                        ->where('status', 1)
+                        ->first();
+    
+                    if ($kaprodiAktif) {
+                        return redirect()->back()
+                            ->with('error', 'Sudah ada Kaprodi aktif untuk prodi ini.')
+                            ->withInput();
+                    }
+                }
+                $user = User::create([
+                    'id_user' => $request->id_user,
+                    'username' => $request->id_user,
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'id_role' => $request->id_role,
+                    'status' => $request->status,
+                    'id_prodi' => $request->id_prodi,
+                ]);
 
-            Log::info('User berhasil dibuat:', $user->toArray());
+                // Log::info('User berhasil dibuat:', $user->toArray());
 
-            return redirect()->route('manage-user')->with('success', 'User berhasil ditambahkan');
+                // return redirect()->route('admin.manage-user')->with('success', 'User berhasil ditambahkan');
+                Log::info('Sampai di akhir store');
+                return redirect()->route('admin.manage-user')->with('success', 'User berhasil ditambahkan');
 
+            } catch (\Exception $e){
+                Log::error('Gagal buat user: ' . $e->getMessage());
+                return redirect()->back()->with('error', 'Gagal menyimpan user');
+            }
+        }
 
-            // return response()->json([
-            //     'message' => 'User berhasil dibuat',
-            //     'user' => $user
-            // ], 201);
-    } catch (\Exception $e){
-        Log::error('Gagal buat user: ' . $e->getMessage());
-        return response()->json(['error' => 'Gagal menyimpan user'], 500);
-    }
-}
     /**
      * Tampilkan detail user berdasarkan ID.
      */
@@ -132,4 +135,14 @@ class UserController extends Controller
         $programStudi = ProgramStudi::all();
         return view('admin.create-user', compact('roles','programStudi'));
     }
+
+    public function toggleStatus($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = $user->status === 1 ? 0 : 1;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Status berhasil diubah.');
+    }
+
 }
