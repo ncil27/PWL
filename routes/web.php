@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/create-user', [UserController::class, 'store'])->name('user.store');
         
     });
+
+    
     
     Route::post('/mo/upload-surat/{id}', [PengajuanController::class, 'uploadSurat'])->name('mo.uploadSurat');
     Route::get('/manage-pengajuan', [KaprodiController::class, 'managePengajuan'])->name('kaprodi.manage-pengajuan');
@@ -84,14 +86,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/surat/sp/create/{id_pengajuan}', [SuratSPController::class, 'create'])->name('surat.sp.create');
     Route::post('/surat/sp/store', [SuratSPController::class, 'store'])->name('surat.sp.store');
 
-
     Route::get('/surat/slhs/create/{id_pengajuan}', [SuratSLHSController::class, 'create'])->name('surat.slhs.create');
     Route::post('/surat/slhs/store', [SuratSLHSController::class, 'store'])->name('surat.slhs.store');
-
 
     Route::get('/surat/skl/create/{id_pengajuan}', [SuratSKLController::class, 'create'])->name('surat.skl.create');
     Route::post('/surat/skl/store', [SuratSKLController::class, 'store'])->name('surat.skl.store');
 
+    Route::get('/mahasiswa/riwayat', [DashboardController::class, 'riwayat'])->name('mahasiswa.riwayat');
 
 
 });

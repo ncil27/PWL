@@ -73,12 +73,96 @@
                 </tbody>
             </table>
             @foreach ($pengajuans as $p)
+                <!-- Modal Detail Pengajuan -->
+                <div class="modal fade" id="modalDetail{{ $p->id_pengajuan }}" tabindex="-1" role="dialog" aria-labelledby="modalDetailLabel{{ $p->id_pengajuan }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalDetailLabel{{ $p->id_pengajuan }}">Detail Pengajuan</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i data-feather="x"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Nama:</strong> {{ $p->mahasiswa->name }}</p>
+                                <p><strong>Jenis Surat:</strong> {{ $p->jenisSurat->jenis_surat }}</p>
+                                <p><strong>Status:</strong> {{ $p->status_surat['label'] }}</p>
+
+                                {{-- Switch berdasarkan kode jenis surat --}}
+                                @switch($p->jenisSurat->kode_surat)
+
+                                    {{-- 0 = Surat Keterangan Mahasiswa Aktif --}}
+                                    @case(0)
+                                        @if($p->skma)
+                                            <hr>
+                                            <h5 class="modal-title">Detail SKMA</h5>
+                                            <p><strong>Semester:</strong> {{ $p->skma->semester }}</p>
+                                            <p><strong>Keperluan:</strong> {{ $p->skma->keperluan }}</p>
+                                            <p><strong>Periode:</strong> {{ $p->skma->id_periode }}</p>
+                                        @else
+                                            <p class="text-muted">Detail SKMA belum tersedia.</p>
+                                        @endif
+                                        @break
+
+                                    {{-- 1 = Surat Pengantar Tugas --}}
+                                    @case(1)
+                                        @if($p->suratPengantar)
+                                            <hr>
+                                            <h5 class="modal-title">Detail Surat Pengantar</h5>
+                                            <p><strong>Topik:</strong> {{ $p->suratPengantar->topik }}</p>
+                                            <p><strong>Tujuan:</strong> {{ $p->suratPengantar->tujuan }}</p>
+                                            <p><strong>Penerima:</strong> {{ $p->suratPengantar->penerima }}</p>
+                                            <p><strong>Kode Matkul:</strong> {{ $p->suratPengantar->kode_matkul }}</p>
+                                            <p><strong>Periode:</strong> {{ $p->suratPengantar->id_periode }}</p>
+                                            <p><strong>Data Mahasiswa:</strong> {{ $p->suratPengantar->data_mhs }}</p>
+                                        @else
+                                            <p class="text-muted">Detail surat pengantar belum tersedia.</p>
+                                        @endif
+                                        @break
+
+                                    {{-- 2 = Laporan Hasil Studi --}}
+                                    @case(2)
+                                        @if($p->lhs)
+                                            <hr>
+                                            <h5 class="modal-title">Detail Laporan Hasil Studi</h5>
+                                            <p><strong>Keperluan:</strong> {{ $p->lhs->keperluan }}</p>
+                                        @else
+                                            <p class="text-muted">Detail LHS belum tersedia.</p>
+                                        @endif
+                                        @break
+
+                                    {{-- 3 = Surat Keterangan Lulus --}}
+                                    @case(3)
+                                        @if($p->skl)
+                                            <hr>
+                                            <h5 class="modal-title">Detail Surat Keterangan Lulus</h5>
+                                            <p><strong>Tangagal Lulus:</strong> {{ $p->skl->tgl_lulus }}</p>
+                                        @else
+                                            <p class="text-muted">Detail SKL belum tersedia.</p>
+                                        @endif
+                                        @break
+
+                                    @default
+                                        <p class="text-muted">Jenis surat tidak dikenali.</p>
+
+                                @endswitch
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+
+            {{-- @foreach ($pengajuans as $p)
                 <!-- Modal -->
                 <div class="modal fade" id="modalDetail{{ $p->id_pengajuan }}" tabindex="-1" role="dialog" aria-labelledby="modalDetailLabel{{ $p->id_pengajuan }}" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalDetailLabel{{ $p->id_pengajuan }}">Detail Pengajuan SKMA</h5>
+                                <h5 class="modal-title" id="modalDetailLabel{{ $p->id_pengajuan }}">Detail Pengajuan</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <i data-feather="x"></i>
                                 </button>
@@ -101,7 +185,7 @@
                         </div>
                     </div>
                 </div>
-            @endforeach    
+            @endforeach     --}}
 
         </div>
     </div>

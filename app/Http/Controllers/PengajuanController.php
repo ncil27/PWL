@@ -23,6 +23,7 @@ class PengajuanController extends Controller
         $pengajuans = Pengajuan::with('jenisSurat')->get();; // Atau filter berdasarkan prodi
         $users = User::all(); // Atau filter berdasarkan prodi
         
+        
         return view('roles.kaprodi.manage-pengajuan', compact('pengajuans','users'));
     }
 
@@ -164,6 +165,7 @@ class PengajuanController extends Controller
 
     }
 
+
     public function uploadSurat(Request $request, $id)
     {
         $request->validate([
@@ -185,6 +187,8 @@ class PengajuanController extends Controller
 
         return redirect()->back()->with('success', 'Surat berhasil diupload.');
     }
+
+
 
 }
 

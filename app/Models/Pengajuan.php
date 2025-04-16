@@ -49,4 +49,18 @@ class Pengajuan extends Model
     {
         return $this->hasOne(SuratSKMA::class, 'id_pengajuan', 'id_pengajuan');
     }
+    public function suratPengantar()
+    {
+        return $this->hasOne(SuratPengantar::class, 'id_pengajuan');
+    }
+    
+    public function lhs()
+    {
+        return $this->hasOne(SuratLHS::class, 'id_pengajuan');
+    }
+    
+    public function skl()
+    {
+        return $this->hasOne(SuratSKL::class, 'id_pengajuan');
+    }
 }

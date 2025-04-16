@@ -26,6 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JenisSurat;
 use App\Models\SuratSKMA;
+use App\Models\Pengajuan;
 
 
 class DashboardController extends Controller
@@ -61,4 +62,19 @@ class DashboardController extends Controller
         // Default jika tidak memiliki role
         abort(403, 'Unauthorized');
     }
+
+
+    public function riwayat()
+    {
+        $user = Auth::user();
+
+        // Ambil semua pengajuan milik mahasiswa ini
+        $pengajuans = Pengajuan::with(['jenisSurat', 'skma', 'mahasiswa'])
+            ->where('id_mhs', $user->id_user)
+            ->orderBy('id_pengajuan','asc')
+            ->paginate(50);
+
+        return view('roles.mahasiswa.riwayat', compact('pengajuans'));
+    }
+
 }

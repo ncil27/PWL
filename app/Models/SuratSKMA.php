@@ -29,9 +29,5 @@ class SuratSKMA extends Model
         return $this->belongsTo(Pengajuan::class, 'id_pengajuan');
     }
 
-    public function pengajuan()
-    {
-        return $this->belongsTo(Pengajuan::class, 'id_pengajuan', 'id_pengajuan');
-    }
 
 }

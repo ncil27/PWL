@@ -20,7 +20,7 @@ class SuratSPController extends Controller
     public function store(Request $request)
     {
         Log::info('SPController dipanggil');
-        dd($request->all());
+        // dd($request->all());
         // dd($request->all());
         $request->validate([
             'id_pengajuan' => 'required|exists:pengajuan,id_pengajuan',
