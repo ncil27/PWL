@@ -43,13 +43,13 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ Request::is('manage-user')?'active':'' }} ">
+                        <li class="sidebar-item {{ Request::is('manage-user')?'active':'' }} {{  Request::is('admin/manage-user/*')?'active':''  }} ">
                             <a href="/manage-user" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>Manage User</span>
                             </a>
                         </li>
-                        <li class="sidebar-item {{ Request::is('admin.manage-data')?'active':'' }} ">
+                        <li class="sidebar-item {{ Request::is('manage-data')?'active':''}}">
                             <a href="/manage-data" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>Manage Data</span>

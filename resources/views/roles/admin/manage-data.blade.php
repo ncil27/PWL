@@ -34,13 +34,6 @@
                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditProdi{{ $prodi->id_prodi }}">
                             Edit
                         </button>
-
-                        <!-- Tombol Delete -->
-                        <form action="{{ route('program-studi.destroy', $prodi->id_prodi) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Hapus prodi ini?')">Delete</button>
-                        </form>
                     </td>
                 </tr>
 
@@ -129,13 +122,6 @@
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditSurat{{ $surat->kode_surat }}">
                                 Edit
                             </button>
-
-                            <!-- Tombol Delete -->
-                            <form action="{{ route('admin.jenis-surat.destroy', $surat->kode_surat) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Hapus jenis surat ini?')">Delete</button>
-                            </form>
                         </td>
                     </tr>
 
