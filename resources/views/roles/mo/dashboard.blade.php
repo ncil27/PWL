@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <h4 class="card-title">Finalisasi Pengajuan Surat</h4>
                         <p> Melihat dan finalisasi pengajuan surat yang telah disetujui Ketua Program Studi </p>
-                        <a href="{{ route('kaprodi.manage-pengajuan') }}" class="btn btn-primary block">
+                        <a href="{{ route('mo.final-pengajuan') }}" class="btn btn-primary block">
                             Lihat Pengajuan Surat
                         </a>
                 </div>
