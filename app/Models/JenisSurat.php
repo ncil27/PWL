@@ -17,13 +17,9 @@ class JenisSurat extends Model
 
     protected $table = 'jenis_surat';
     protected $primaryKey = 'kode_surat';
-    // public $incrementing = false;
-    protected $keyType = 'int';
+    public $timestamps = false; // ⬅️ Ini penting!
 
-    protected $fillable = [
-        'kode_surat',
-        'jenis_surat',
-    ];
+    protected $fillable = ['jenis_surat'];
     public function pengajuans()
 {
     return $this->hasMany(Pengajuan::class, 'kode_surat', 'kode_surat');

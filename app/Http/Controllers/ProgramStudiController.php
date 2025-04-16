@@ -13,40 +13,51 @@ class ProgramStudiController extends Controller
 {
     public function index()
     {
-        return view('roles.admin.manage-data', [
-            'users' => User::with('role')->get(),
-            'programStudi' => ProgramStudi::all(),
-            'jenisSurat' => JenisSurat::all(),
-        ]);
+        $programStudi = ProgramStudi::all();
+        $jenisSurat = JenisSurat::all();
+        $users = User::with('role')->get();
+        
+        return view('roles.admin.manage-data', compact('programStudi', 'users', 'jenisSurat'));
     }
 
 
-    public function create() {
-        return view('admin.manage-data.create');
+
+    public function create()
+    {
+        return view('admin.program-studi.create');
     }
-    
-    public function store(Request $request) {
-        ProgramStudi::create([
-            'program_studi' => $request->program_studi,
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'program_studi' => 'required|string|max:100'
         ]);
-        return redirect()->route('admin.manage-data')->with('success', 'Program studi ditambahkan!');
+
+        ProgramStudi::create($request->all());
+        return redirect()->route('program-studi.index')->with('success', 'Program Studi berhasil ditambahkan!');
     }
-    
-    public function edit($id) {
-        $program = ProgramStudi::findOrFail($id);
-        return view('admin.manage-data.edit', compact('program'));
+
+    public function edit($id)
+    {
+        $prodi = ProgramStudi::findOrFail($id);
+        return view('admin.program-studi.edit', compact('prodi'));
     }
-    
-    public function update(Request $request, $id) {
-        $program = ProgramStudi::findOrFail($id);
-        $program->update([
-            'program_studi' => $request->program_studi,
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'program_studi' => 'required|string|max:100'
         ]);
-        return redirect()->route('program-studi.index')->with('success', 'Program studi diperbarui!');
+
+        $prodi = ProgramStudi::findOrFail($id);
+        $prodi->update($request->all());
+        return redirect()->route('program-studi.index')->with('success', 'Program Studi berhasil diupdate!');
     }
-    
-    public function destroy($id) {
-        ProgramStudi::destroy($id);
-        return redirect()->route('program-studi.index')->with('success', 'Program studi dihapus!');
+
+    public function destroy($id)
+    {
+        $prodi = ProgramStudi::findOrFail($id);
+        $prodi->delete();
+        return redirect()->route('program-studi.index')->with('success', 'Program Studi berhasil dihapus!');
     }
 }

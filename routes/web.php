@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MOController;
 use App\Http\Controllers\KaprodiController;
 use App\Http\Controllers\ProgramStudiController;
+use App\Http\Controllers\JenisSuratController;
 use App\Models\ProgramStudi;
 use Illuminate\Support\Facades\Auth;
 
@@ -105,9 +106,21 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('program-studi', ProgramStudiController::class)->middleware('auth');
     Route::get('/manage-data', [ProgramStudiController::class, 'index'])->name('admin.manage-data');
+    Route::resource('/program-studi', ProgramStudiController::class)->names([
+        'index' => 'program-studi.index',
+        'create' => 'program-studi.create',
+        'store' => 'program-studi.store',
+        'edit' => 'program-studi.edit',
+        'update' => 'program-studi.update',
+        'destroy' => 'program-studi.destroy',
+    ]);
+    
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('jenis-surat', JenisSuratController::class);
+    });
 
     Route::get('/mahasiswa/riwayat', [DashboardController::class, 'riwayat'])->name('mahasiswa.riwayat');
-
+    
 
 });
 
