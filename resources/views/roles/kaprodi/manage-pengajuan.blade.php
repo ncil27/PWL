@@ -59,7 +59,7 @@
                                 <form action="{{ route('pengajuan.updateStatus', $pengajuan->id_pengajuan) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('PUT')
-                                    <input type="hidden" name="status" value="4">
+                                    <input type="hidden" name="status" value="3">
                                     <button type="submit" class="btn btn-danger btn-sm" title="Tolak">
                                         <i class="bi bi-x-square-fill"></i>
                                     </button>

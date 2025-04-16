@@ -118,6 +118,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('jenis-surat', JenisSuratController::class);
     });
+    Route::get('/pengajuan/mo', [PengajuanController::class, 'indexMO'])->name('pengajuan.mo');
+
 
     Route::get('/mahasiswa/riwayat', [DashboardController::class, 'riwayat'])->name('mahasiswa.riwayat');
     

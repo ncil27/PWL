@@ -63,4 +63,12 @@ class Pengajuan extends Model
     {
         return $this->hasOne(SuratSKL::class, 'id_pengajuan');
     }
+
+    // public function indexMO()
+    // {
+    //     // MO cuma lihat yang udah disetujui Kaprodi (status = 1)
+    //     $pengajuan = Pengajuan::where('status', 1)->get();
+
+    //     return view('roles.mo.final-pengajuan', compact('pengajuan'));
+    // }
 }

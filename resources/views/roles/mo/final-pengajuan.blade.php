@@ -24,6 +24,7 @@
                 </thead>
                 <tbody>
                     @foreach($pengajuan as $p)
+                        
                         <tr >
                             <td data-bs-toggle="modal" data-bs-target="#modalDetail{{ $p->id_pengajuan }}" style="cursor: pointer;">{{ $p->mahasiswa->name }}</td>
                             <td data-bs-toggle="modal" data-bs-target="#modalDetail{{ $p->id_pengajuan }}" style="cursor: pointer;">{{ $p->jenisSurat->jenis_surat }}</td>
