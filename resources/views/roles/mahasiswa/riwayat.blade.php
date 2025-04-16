@@ -98,11 +98,17 @@
                                         <p><strong>Kode Matkul:</strong> {{ $p->suratPengantar->kode_matkul }}</p>
                                         <p><strong>Periode:</strong> {{ $p->suratPengantar->id_periode }}</p>
                                         <p><strong>Data Mahasiswa:</strong> {{ $p->suratPengantar->data_mhs }}</p>
-                                        <a href="{{ route('surat.sp.edit', $p->id_pengajuan) }}" class="btn btn-warning btn-sm mt-2">
+                                        <a href="{{ route('surat.skma.edit', $p->id_pengajuan) }}" class="btn btn-warning btn-sm mt-2">
                                             <i class="bi bi-pencil-fill"></i> Edit
                                         </a>
+                                        @if ($p->status == 1 && $p->file_surat)
+                                            <a href="{{ route('surat.lihat', $p->id_pengajuan) }}" target="_blank" class="btn btn-success btn-sm mt-2">
+                                                <i class="bi bi-file-earmark-arrow-down-fill"></i> Lihat File
+                                            </a>
+                                        @endif
+
                                     @else
-                                        <p class="text-muted">Detail surat pengantar belum tersedia.</p>
+                                        <p class="text-muted">Detail SKMA belum tersedia.</p>
                                     @endif
                                     @break
 
