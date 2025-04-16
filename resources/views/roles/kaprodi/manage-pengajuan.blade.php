@@ -28,7 +28,7 @@
                 <tbody>
                     @foreach ($pengajuans as $pengajuan)
                     <tr data-bs-toggle="modal" data-bs-target="#modalDetail{{ $pengajuan->id_pengajuan }}" style="cursor: pointer;">
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $pengajuans->total() - ($pengajuans->firstItem() - 1 + $loop->index) }}</td>
                         <td>{{ $pengajuan->id_pengajuan }}</td>
                         <td>{{ $pengajuan->id_mhs }}</td>
                         <td>{{ $pengajuan->jenisSurat->jenis_surat}}</td>
@@ -72,6 +72,11 @@
                     @endforeach
                 </tbody>
             </table>
+            
+            <div class="d-flex justify-content-center">
+                {{ $pengajuans->links() }}
+            </div>
+            
             @foreach ($pengajuans as $p)
                 <!-- Modal Detail Pengajuan -->
                 <div class="modal fade" id="modalDetail{{ $p->id_pengajuan }}" tabindex="-1" role="dialog" aria-labelledby="modalDetailLabel{{ $p->id_pengajuan }}" aria-hidden="true">

@@ -20,9 +20,9 @@ class PengajuanController extends Controller
 
     public function index()
     {
-        $pengajuans = Pengajuan::with('jenisSurat')->get();; // Atau filter berdasarkan prodi
-        $users = User::all(); // Atau filter berdasarkan prodi
-        
+        $pengajuans = Pengajuan::with('jenisSurat')->orderBy('created_at', 'desc')
+        ->paginate(25);
+        $users = User::all();
         
         return view('roles.kaprodi.manage-pengajuan', compact('pengajuans','users'));
     }
@@ -162,8 +162,8 @@ class PengajuanController extends Controller
         $pengajuan->save();
 
         return redirect()->route('kaprodi.manage-pengajuan')->with('success', 'Status pengajuan berhasil diperbarui.');
-
     }
+
 
 
     public function uploadSurat(Request $request, $id)
@@ -188,6 +188,7 @@ class PengajuanController extends Controller
         return redirect()->back()->with('success', 'Surat berhasil diupload.');
     }
 
+    
 
 
 }

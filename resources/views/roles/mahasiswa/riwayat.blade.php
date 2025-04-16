@@ -27,7 +27,7 @@
                 <tbody>
                     @foreach ($pengajuans as $pengajuan)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $pengajuans->firstItem() + $loop->index }}</td>
                         <td>{{ $pengajuan->id_pengajuan }}</td>
                         <td>{{ $pengajuan->jenisSurat->jenis_surat }}</td>
                         <td>{{ $pengajuan->created_at->format('d-m-Y') }}</td>
@@ -38,7 +38,7 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $pengajuan->id_pengajuan }}">
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $pengajuan->id_pengajuan }}">
                                 <i class="bi bi-eye-fill"></i> Detail
                             </button>
                         </td>
@@ -46,6 +46,12 @@
                     @endforeach
                 </tbody>
             </table>
+
+            
+            
+            <div class="d-flex justify-content-center">
+                {{ $pengajuans->links() }}
+            </div>
 
             {{-- Modal --}}
             @foreach ($pengajuans as $p)

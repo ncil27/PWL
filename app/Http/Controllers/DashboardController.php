@@ -72,7 +72,7 @@ class DashboardController extends Controller
         $pengajuans = Pengajuan::with(['jenisSurat', 'skma', 'mahasiswa'])
             ->where('id_mhs', $user->id_user)
             ->orderBy('id_pengajuan','asc')
-            ->paginate(50);
+            ->paginate(25);
 
         return view('roles.mahasiswa.riwayat', compact('pengajuans'));
     }
