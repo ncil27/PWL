@@ -38,10 +38,22 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $pengajuan->id_pengajuan }}">
+                            <button class="btn btn-outline-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalDetail{{ $pengajuan->id_pengajuan }}">
                                 <i class="bi bi-eye-fill"></i> Detail
                             </button>
+
+                            @if ($pengajuan->file_surat)
+                                <a href="{{ asset('storage/' . $pengajuan->file_surat) }}" 
+                                target="_blank" 
+                                class="btn btn-success btn-sm mt-1">
+                                    <i class="bi bi-download"></i> Download
+                                </a>
+                            @else
+                                <span class="text-muted d-block mt-1">Belum tersedia</span>
+                            @endif
                         </td>
+
+
                     </tr>
                     @endforeach
                 </tbody>
