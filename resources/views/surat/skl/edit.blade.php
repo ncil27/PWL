@@ -50,8 +50,8 @@
                                 </div>                                
 
                                 <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary me-1">Simpan Perubahan</button>
-                                    <a href="{{ route('mahasiswa.riwayat') }}" class="btn btn-light-secondary">Batal</a>
+                                    <button type="submit" class="btn btn-outline-success me-1">Simpan Perubahan</button>
+                                    <button type="button" href="" id="btnBackDashboard" class="btn btn-light-secondary">Batal</buton>
                                 </div>
                             </div>
                         </form>
@@ -66,6 +66,7 @@
 @section('js_bwh')
 @if (session('success'))
 <script>
+
     Toastify({
         text: "{{ session('success') }}",
         duration: 3000,
@@ -77,4 +78,23 @@
     }).showToast();
 </script>
 @endif
+
+<script>    
+    document.getElementById('btnBackDashboard').addEventListener('click', function () {
+        Swal.fire({
+            title: 'Yakin kembali?',
+            text: "Data tidak akan diubah!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, kembali'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect ke route yang akan menghapus data pengajuan
+                window.location.href = "{{ route('mahasiswa.riwayat') }}";
+            }
+        })
+    });
+</script>
 @endsection

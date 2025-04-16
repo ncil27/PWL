@@ -30,4 +30,27 @@ class SuratSLHSController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Surat LHS berhasil diajukan!');
     }
+
+    public function edit($id_pengajuan)
+    {
+        $slhs = SuratLHS::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        return view('surat.slhs.edit', compact('slhs', 'id_pengajuan',));
+    }
+
+    public function update(Request $request, $id_pengajuan)
+    {
+        
+        $slhs = SuratLHS::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        $request->validate([
+            'id_pengajuan' => 'required|exists:pengajuan,id_pengajuan',
+            'keperluan' => 'required|string|max:100',
+        ]);
+
+        $slhs->update([
+            'id_pengajuan' => $request->id_pengajuan,
+            'keperluan' => $request->keperluan,        ]);
+
+        return redirect()->route('mahasiswa.riwayat')->with('success', 'Surat Keterangan Lulus berhasil diperbarui!');
+    }
+
 }

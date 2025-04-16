@@ -54,7 +54,41 @@ class SuratSPController extends Controller
         $surat->topik = $request->topik;
         $surat->save();
 
-        
+
         return redirect()->route('dashboard')->with('success', 'Surat Pengantar berhasil diajukan!');
     }
+
+    public function edit($id_pengajuan)
+    {
+        $periode = Periode::all();
+        $sp = SuratPengantar::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        return view('surat.sp.edit', compact('sp', 'id_pengajuan','periode'));
+    }
+
+    public function update(Request $request, $id_pengajuan)
+    {
+        $request->validate([
+            'id_pengajuan' => 'required|exists:pengajuan,id_pengajuan',
+            'penerima' => 'required|string|max:100',
+            'kode_matkul' => 'required|string|max:10',
+            'id_periode' => 'required|string|max:15',
+            'tujuan' => 'required|string|max:200',
+            'topik' => 'required|string|max:100',
+            'data_mhs' => 'required|string|max:150',        ]);
+
+        $spt = SuratPengantar::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        $spt->update([
+            'id_pengajuan' => $request->id_pengajuan,
+            'penerima' => $request->penerima,
+            'kode_matkul' => $request->kode_matkul,
+            'id_periode' => $request->id_periode,
+            'tujuan' => $request->tujuan,
+            'topik' => $request->topik,
+            'data_mhs' => $request->data_mhs,        
+        ]);
+
+        return redirect()->route('mahasiswa.riwayat')->with('success', 'Surat sp berhasil diperbarui!');
+    }
+
 }
+

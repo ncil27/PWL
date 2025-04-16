@@ -79,7 +79,7 @@
                                         <p><strong>Semester:</strong> {{ $p->skma->semester }}</p>
                                         <p><strong>Keperluan:</strong> {{ $p->skma->keperluan }}</p>
                                         <p><strong>Periode:</strong> {{ $p->skma->id_periode }}</p>
-                                        {{-- <a href="{{ route('surat.skma.edit', $p->id_pengajuan) }}" class="btn btn-warning btn-sm mt-2"> --}}
+                                        <a href="{{ route('surat.skma.edit', $p->id_pengajuan) }}" class="btn btn-warning btn-sm mt-2">
                                             <i class="bi bi-pencil-fill"></i> Edit
                                         </a>
                                     @else
@@ -98,7 +98,7 @@
                                         <p><strong>Kode Matkul:</strong> {{ $p->suratPengantar->kode_matkul }}</p>
                                         <p><strong>Periode:</strong> {{ $p->suratPengantar->id_periode }}</p>
                                         <p><strong>Data Mahasiswa:</strong> {{ $p->suratPengantar->data_mhs }}</p>
-                                        {{-- <a href="{{ route('surat.sp.edit', $p->id_pengajuan) }}" class="btn btn-warning btn-sm mt-2"> --}}
+                                        <a href="{{ route('surat.sp.edit', $p->id_pengajuan) }}" class="btn btn-warning btn-sm mt-2">
                                             <i class="bi bi-pencil-fill"></i> Edit
                                         </a>
                                     @else
@@ -112,7 +112,7 @@
                                         <hr>
                                         <h5 class="modal-title">Detail Laporan Hasil Studi</h5>
                                         <p><strong>Keperluan:</strong> {{ $p->lhs->keperluan }}</p>
-                                        {{-- <a href="{{ route('surat.slhs.edit', $p->id_pengajuan) }}" class="btn btn-warning btn-sm mt-2"> --}}
+                                        <a href="{{ route('surat.slhs.edit', $p->id_pengajuan) }}" class="btn btn-warning btn-sm mt-2">
                                             <i class="bi bi-pencil-fill"></i> Edit
                                         </a>
                                     @else

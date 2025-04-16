@@ -40,5 +40,32 @@ class SuratSKMAController extends Controller
         $riwayat = auth()->user()->suratSKMA()->latest()->get();
         return view('roles.mahasiswa.riwayat', compact('riwayat'));
     }
+    public function edit($id_pengajuan)
+    {
+        $periode = Periode::all();
+        $skma = SuratSKMA::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        return view('surat.skma.edit', compact('skma', 'id_pengajuan','periode'));
+    }
+
+    public function update(Request $request, $id_pengajuan)
+    {
+        
+        $request->validate([
+            'id_pengajuan' => 'required|exists:pengajuan,id_pengajuan',
+            'semester' => 'required|integer|min:1|max:14',
+            'keperluan' => 'required|string|max:255',
+            'id_periode' => 'required|string|max: 15',
+        ]);
+
+        $skma = SuratSKMA::where('id_pengajuan', $id_pengajuan)->firstOrFail();
+        $skma->update([
+            'semester' => $request->semester,
+            'keperluan' => $request->keperluan,
+            'id_periode' => $request->id_periode,
+        ]);
+
+        return redirect()->route('mahasiswa.riwayat')->with('success', 'Surat Keterangan Lulus berhasil diperbarui!');
+    }
+
 }
 

@@ -81,23 +81,26 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/surat/skma/create/{id_pengajuan}', [SuratSKMAController::class, 'create'])->name('surat.skma.create');
-    Route::post('/surat/skma/store', [SuratSKMAController::class, 'store'])->name('surat.skma.store');
+    Route::post('/surat/skma/store', [SuratSKMAController::class, 'store'])->name('surat.skma.store');    
+    Route::get('/surat/skma/edit/{id_pengajuan}', [SuratSKMAController::class, 'edit'])->name('surat.skma.edit');
+    Route::put('/surat/skma/update/{id_pengajuan}', [SuratSKMAController::class, 'update'])->name('surat.skma.update');
 
     Route::get('/surat/sp/create/{id_pengajuan}', [SuratSPController::class, 'create'])->name('surat.sp.create');
     Route::post('/surat/sp/store', [SuratSPController::class, 'store'])->name('surat.sp.store');
+    Route::get('/surat/sp/edit/{id_pengajuan}', [SuratSPController::class, 'edit'])->name('surat.sp.edit');
+    Route::put('/surat/sp/update/{id_pengajuan}', [SuratSPController::class, 'update'])->name('surat.sp.update');
 
     Route::get('/surat/slhs/create/{id_pengajuan}', [SuratSLHSController::class, 'create'])->name('surat.slhs.create');
     Route::post('/surat/slhs/store', [SuratSLHSController::class, 'store'])->name('surat.slhs.store');
-    // Route::get('/surat/slhs/edit/{id_pengajuan}', [SuratLSHSController::class, 'edit'])->name('surat.slhs.edit');
-    // Route::put('/surat/slhs/update/{id_pengajuan}', [SuratLSHSController::class, 'update'])->name('surat.slhs.update');
+    Route::get('/surat/slhs/edit/{id_pengajuan}', [SuratSLHSController::class, 'edit'])->name('surat.slhs.edit');
+    Route::put('/surat/slhs/update/{id_pengajuan}', [SuratSLHSController::class, 'update'])->name('surat.slhs.update');
     
 
-
+    Route::post('/surat/skl/store', [SuratSKLController::class, 'store'])->name('surat.skl.store');
     Route::get('/surat/skl/create/{id_pengajuan}', [SuratSKLController::class, 'create'])->name('surat.skl.create');
     Route::get('/surat/skl/edit/{id_pengajuan}', [SuratSKLController::class, 'edit'])->name('surat.skl.edit');
     Route::put('/surat/skl/update/{id_pengajuan}', [SuratSKLController::class, 'update'])->name('surat.skl.update');
 
-    Route::post('/surat/skl/store', [SuratSKLController::class, 'store'])->name('surat.skl.store');
 
     Route::get('/mahasiswa/riwayat', [DashboardController::class, 'riwayat'])->name('mahasiswa.riwayat');
 

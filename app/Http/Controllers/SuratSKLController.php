@@ -38,11 +38,13 @@ class SuratSKLController extends Controller
     public function update(Request $request, $id_pengajuan)
     {
         $request->validate([
+            'id_pengajuan' => 'required|exists:pengajuan,id_pengajuan',
             'tgl_lulus' => 'required|date',
         ]);
 
         $skl = SuratSKL::where('id_pengajuan', $id_pengajuan)->firstOrFail();
         $skl->update([
+            'id_pengajuan' => $request->id_pengajuan,
             'tgl_lulus' => $request->tgl_lulus,
         ]);
 
