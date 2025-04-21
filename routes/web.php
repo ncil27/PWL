@@ -24,17 +24,6 @@ Route::get('/', function () {
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-
-    // ->middleware(['auth', 'verified'])
-
-// Route::get('/dashboard', function(){
-//     return view('dashboard');
-//     })->name('dashboard');
-// Route::get('/manage-user', function () {
-//     return view('manage-user');
-//     })->name('manage-user');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
@@ -48,11 +37,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::middleware(['role:0'])->group(function(){
-        
-        // Route::get('/manage-user', function () {
-        //     $users = User::all(); // Mengambil semua data users
-        //     return view('roles.admin.manage-user', compact('users'));   
-        //     })->name('manage-user');
+     
         Route::get('/manage-user', [UserController::class, 'index'])->name('admin.manage-user');
         Route::delete('/admin/manage-user/{id_user}', [UserController::class, 'destroy'])->name('user.destroy');
     
@@ -125,27 +110,5 @@ Route::middleware('auth')->group(function () {
     
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::get('/logout', [ProfileController::class, 'logout']);
-
 require __DIR__.'/auth.php';

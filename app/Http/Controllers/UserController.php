@@ -67,7 +67,6 @@ class UserController extends Controller
                 return redirect()->back()->with('error', 'Gagal menyimpan user');
             }
         }
-
     /**
      * Tampilkan detail user berdasarkan ID.
      */
@@ -104,6 +103,14 @@ class UserController extends Controller
             'id_prodi' => 'sometimes|string|max:2',
         ]);
 
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'status' => $request->status,
+            'id_prodi' => $request->id_prodi,
+        ]);
+        
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);   
         }

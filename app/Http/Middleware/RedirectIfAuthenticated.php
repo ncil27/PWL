@@ -16,14 +16,6 @@ class RedirectIfAuthenticated
         // if (Auth::check()) {
         //     $role = Auth::user()->role;
 
-        //     return match ($role) {
-        //         'admin' => redirect('/admin/dashboard'),
-        //         'kaprodi' => redirect('/kaprodi/dashboard'),
-        //         default => redirect('/dashboard'),
-        //     };
-        // }
-
-        // return $next($request);
 
         if (Auth::user() != null && in_array(Auth::user()->id_role, $roles)){
             return $next($request);

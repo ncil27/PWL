@@ -1,6 +1,5 @@
 USE `pengajuan_surat_if`;
 SELECT * FROM USERS;
-
 INSERT INTO `pengajuan_surat_if`.`program_studi`
 (`id_prodi`,
 `program_studi`,`kode_prodi`)
@@ -8,7 +7,6 @@ VALUES
 ('if', 'S-1 Teknik Informatika','72'),
 ('si','S-1 Sistem Informasi','73'),
 ('s2','S-2 Ilmu Komputer','71');
-
 INSERT INTO `pengajuan_surat_if`.`users`
 (`id_user`,
 `username`,
@@ -32,6 +30,7 @@ VALUES
 'Cecilia Anna Hartanti Naibaho',
 '2372060@maranatha.ac.id',
 '$2y$10$.lNomzKJerwAdTIq7Hf0aOtve9a497jc3dWQ4D.3p21zQ0qJbxjjC',
+
 'mahasiswa',
 'aktif',
 'si'),
@@ -68,5 +67,3 @@ VALUES
 'kaprodi',
 'aktif',
 'si');
-
-
