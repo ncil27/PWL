@@ -238,5 +238,5 @@ DELIMITER ;
 
 
 INSERT INTO users (username,name, email, password, role, status, created_at, updated_at)
-VALUES ('2372061','Laura Puspa', 'laura@example.com', 'password123', 'dosen', 'aktif', NOW(), NOW());
+VALUES ('2372061','Laura Puspa', 'laura@example.com', hash('password123'), 'dosen', 'aktif', NOW(), NOW());
 

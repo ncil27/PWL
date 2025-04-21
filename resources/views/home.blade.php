@@ -7,11 +7,11 @@
             </div>
         
             <div class="flex justify-center card-body">
-                <a href="{{ route('register') }}">
+                <!-- <a href="{{ route('register') }}">
                     <x-secondary-button class="ms-3">
                         {{ __('Register') }}
                     </x-secondary-button>
-                </a>
+                </a> -->
                 <a href="{{ route('login') }}">
                     <x-primary-button class="ms-3">
                         {{ __('Log in') }}

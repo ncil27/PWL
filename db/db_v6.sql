@@ -38,6 +38,7 @@ DROP TABLE IF EXISTS `pengajuan_surat_if`.`program_studi` ;
 CREATE TABLE IF NOT EXISTS `pengajuan_surat_if`.`program_studi` (
   `id_prodi` CHAR(2) NOT NULL,
   `program_studi` VARCHAR(25) NOT NULL,
+  `kode_prodi` CHAR(2) NOT NULL,
   PRIMARY KEY (`id_prodi`))
 ENGINE = InnoDB;
 

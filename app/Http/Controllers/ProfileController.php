@@ -57,4 +57,9 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    function logout(){
+        Auth::logout();
+        return redirect('login')->with('success','Berhasil logout');
+    }
 }

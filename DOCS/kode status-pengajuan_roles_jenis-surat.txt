@@ -1,0 +1,19 @@
+status pengajuan:
+0 = diajukan
+1 = diproses ke Kaprodi
+2 = diproses ke MO
+3 = disetujui
+4 = ditolak
+
+Roles:
+0 = admin
+1 = kaprodi
+2 = MO
+3 = mahasiswa
+
+Jenis surat:
+0 = 'Surat Keterangan Mahasiswa Aktif'
+1 = 'Surat Pengantar Tugas'
+2 = 'Laporan Hasil Studi'
+3 = 'Surat Keterangan Lulus'
+        cn65

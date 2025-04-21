@@ -11,20 +11,16 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (Auth::check()) {
-            $role = Auth::user()->role;
+        // if (Auth::check()) {
+        //     $role = Auth::user()->role;
 
-            return match ($role) {
-                'admin' => redirect('/admin/dashboard'),
-                'kaprodi' => redirect('/kaprodi/dashboard'),
-                // 'mo' => redirect('/mo/dashboard'),
-                default => redirect('/dashboard'),
-            };
+
+        if (Auth::user() != null && in_array(Auth::user()->id_role, $roles)){
+            return $next($request);
         }
-
-        return $next($request);
+        return response(view('welcome'));
     }
 
 }

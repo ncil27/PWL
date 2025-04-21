@@ -1,0 +1,1 @@
+SELECT * FROM pengajuan_surat_if.users;
